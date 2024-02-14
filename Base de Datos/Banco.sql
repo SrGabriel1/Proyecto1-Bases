@@ -12,9 +12,16 @@ calle varchar(40),
 colonia varchar(40),
 edad int
 );
+create table Usuario(
+idUsuario int primary key auto_increment NOT NULL,
+contrasena  int,
+usuario varchar(30),
+idCliente int,
+foreign key(idCliente) references clientes(idCliente)	
+);
 
 create table cuentas(
-idCuenta int primary key,
+idCuenta int primary key auto_increment NOT NULL,
 numeroCuenta int(16),
 fechaApertura date,
 saldo int,
