@@ -3,19 +3,22 @@ use banco;
 
 create table clientes(
 idCliente int primary key auto_increment NOT NULL,
-nombreCompleto varchar(30),
+nombre varchar(30),
+apellidoPaterno varchar(30),
+apellidoMaterno varchar(30),
 fechaNacimiento date,
-domicilio varchar(150),
-edad int,
-historial varchar(150)
+numeroCasa int,
+calle varchar(40),
+colonia varchar(40),
+edad int
 );
 
 create table cuentas(
-idNumCuenta int(16) primary key,
-contraseña int(12),
+idCuenta int primary key,
+numeroCuenta int(16),
 fechaApertura date,
 saldo int,
-domicilio varchar(150),
+estado varchar(30),
 idCliente int,
 foreign key(idCliente) references clientes(idCliente)	
 );
@@ -29,23 +32,27 @@ fechaHora date
 
 create table cuentas_tienen_transacciones(
 idTiene int primary key auto_increment NOT NULL,
-idNumCuenta int,
+idCuenta int,
 idTransaccion int,
-foreign key(idNumCuenta) references cuentas(idNumCuenta),
+foreign key(idCuenta) references cuentas(idCuenta),
 foreign key(idTransaccion) references transacciones(idTransaccion)
 );
 
 create table transferencias(
 idTransferencia int primary key auto_increment NOT NULL,
 idTransaccion int,
-foreign key(idTransaccion) references transacciones(idTransaccion)
+idCuentaDestino int,
+idCuentaRemitente int,
+foreign key(idCuentaDestino) references cuentas(idCuenta),
+foreign key(idTransaccion) references transacciones(idTransaccion),
+foreign key(idCuentaRemitente) references cuentas(idCuenta)
 );
 
 create table retirosSinCuenta(
 idRetiro int primary key auto_increment NOT NULL,
 folio int (8),
 contraseña int (8),
+estado varchar(30),
 idTransaccion int,
 foreign key(idTransaccion) references transacciones(idTransaccion)
 );
-
