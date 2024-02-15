@@ -19,6 +19,6 @@ public interface ICuenta {
 
     public boolean eliminarCuenta(int id) throws persistenciaException;
     
-    public List<Cuenta> mostrarCuentas(CuentaDTO cuenta) throws persistenciaException;
+    public List<Cuenta> mostrarCuentas() throws persistenciaException;
 
 }

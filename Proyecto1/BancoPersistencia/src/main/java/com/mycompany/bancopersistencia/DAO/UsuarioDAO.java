@@ -34,7 +34,6 @@ public class UsuarioDAO implements IUsuario {
     @Override
     public Usuario crearUsuario(UsuarioDTO usuario) throws persistenciaException {
         String sentenciaSQL = "insert into usuarios(contrasena,usuario,idCliente) values (?,?,?)";
-
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
             comandoSQL.setString(1, usuario.getContrasena());
             comandoSQL.setString(2, usuario.getUsuario());

@@ -69,7 +69,7 @@ public class CuentaDAO implements ICuenta {
     }
 
     @Override
-    public List<Cuenta> mostrarCuentas(CuentaDTO cuenta) throws persistenciaException {
+    public List<Cuenta> mostrarCuentas() throws persistenciaException {
         String sentencia = "select idCuenta, numeroCuenta, fechaApertura, saldo,estado,idCliente from usuarios;";
         List<Cuenta> listaCuenta = new ArrayList<>();
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia)) {

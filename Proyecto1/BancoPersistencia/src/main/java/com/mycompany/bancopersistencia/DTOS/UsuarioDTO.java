@@ -22,6 +22,11 @@ public class UsuarioDTO {
         this.usuario = usuario;
     }
 
+    public UsuarioDTO(String usuario, String contrasena) {
+        this.usuario = usuario;
+        this.contrasena = contrasena;
+    }
+
     public String getContrasena() {
         return contrasena;
     }
@@ -45,5 +50,9 @@ public class UsuarioDTO {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
-    
+
+    public int getIdUsuario() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

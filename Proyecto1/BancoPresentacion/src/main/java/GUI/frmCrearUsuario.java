@@ -4,12 +4,15 @@
  */
 package GUI;
 
+import com.mycompany.bancodominio.Cliente;
+import com.mycompany.bancodominio.Usuario;
+
 /**
  *
  * @author USER
  */
 public class frmCrearUsuario extends javax.swing.JFrame {
-
+    Cliente cliente= new Cliente();
     /**
      * Creates new form frmInicioSesion
      */
@@ -114,7 +117,11 @@ public class frmCrearUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContinuarActionPerformed
-        frmCrearUsuario2 frmUsuario2= new frmCrearUsuario2();
+        cliente.setNombre(textNombre.getText());
+        cliente.setApellidoPaterno(textApellidoPaterno.getText());
+        cliente.setApellidoMaterno(textApellidoMaterno.getText());
+        cliente.setFechaNacimiento(textFechaNacimiento.getText());
+        frmCrearUsuario2 frmUsuario2= new frmCrearUsuario2(cliente);
         frmUsuario2.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonContinuarActionPerformed

@@ -1,23 +1,31 @@
 package GUI;
 
+import com.mycompany.bancodominio.Usuario;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
-import GUI.*;
 
 /**
  *
  * @author USER
  */
 public class frmMenuUsuario extends javax.swing.JFrame {
-
+    Usuario usuario;
     /**
      * Creates new form frmInicioSesion
      */
     public frmMenuUsuario() {
         initComponents();
+    }
+    
+     /**
+     * Creates new form frmInicioSesion
+     */
+    public frmMenuUsuario(Usuario usuario) {
+        initComponents();
+        this.usuario=usuario;
     }
 
     /**
