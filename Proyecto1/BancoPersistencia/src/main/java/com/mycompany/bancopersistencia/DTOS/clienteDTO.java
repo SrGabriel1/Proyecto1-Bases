@@ -9,20 +9,38 @@ package com.mycompany.bancopersistencia.DTOS;
  * @author yohan
  */
 public class clienteDTO {
+    int numeroCasa, edad;
 
-    private String nombre, apellidoPaterno, apellidoMaterno, telefono, calle, colonia, numero;
+    String nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, calle, colonia;
 
     public clienteDTO() {
     }
 
-    public clienteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String calle, String colonia, String numero) {
+    public clienteDTO(int numeroCasa, int edad, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, String calle, String colonia) {
+        this.numeroCasa = numeroCasa;
+        this.edad = edad;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
-        this.telefono = telefono;
+        this.fechaNacimiento = fechaNacimiento;
         this.calle = calle;
         this.colonia = colonia;
-        this.numero = numero;
+    }
+
+    public int getNumeroCasa() {
+        return numeroCasa;
+    }
+
+    public void setNumeroCasa(int numeroCasa) {
+        this.numeroCasa = numeroCasa;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
 
     public String getNombre() {
@@ -49,12 +67,12 @@ public class clienteDTO {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public String getCalle() {
@@ -73,12 +91,5 @@ public class clienteDTO {
         this.colonia = colonia;
     }
 
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
+    
 }

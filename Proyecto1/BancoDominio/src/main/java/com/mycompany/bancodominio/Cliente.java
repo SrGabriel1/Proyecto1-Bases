@@ -75,6 +75,22 @@ public class Cliente {
     }
 
     /**
+     * Metodo para agregar un domicilio del cliente
+     *
+     * @param numeroCasa El numero de casa que tiene el cliente para
+     * relacionarlo para su direccion
+     * @param calle El nombre de la calle de donde vive el cliente para
+     * relacionarlo para su direccion
+     * @param colonia El nombre de la colonia de donde vive el cliente para
+     * relacionarlo para su direccion
+     */
+    public Cliente(int numeroCasa, String calle, String colonia) {
+        this.numeroCasa = numeroCasa;
+        this.calle = calle;
+        this.colonia = colonia;
+    }
+
+    /**
      * Metodo para regresar el id del cliente
      *
      * @return Regresa el id del cliente seleccionado
