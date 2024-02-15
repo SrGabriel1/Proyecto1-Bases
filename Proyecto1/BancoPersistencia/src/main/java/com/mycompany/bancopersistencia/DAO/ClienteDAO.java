@@ -132,5 +132,7 @@ public class ClienteDAO implements ICliente {
             throw new persistenciaException("No se pudo encontrar el cliente", e);
         }
     }
-
+public Cliente dominio(Cliente cliente){
+return cliente;
+}
 }
