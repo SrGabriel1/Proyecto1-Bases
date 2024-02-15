@@ -8,15 +8,15 @@ package com.mycompany.bancopersistencia.DTOS;
  *
  * @author yohan
  */
-public class cuentaDTO {
+public class CuentaDTO {
 
     int numeroCuenta, saldo, idCliente;
     String fechaApertura, estado;
 
-    public cuentaDTO() {
+    public CuentaDTO() {
     }
 
-    public cuentaDTO(int numeroCuenta, int saldo, int idCliente, String fechaApertura, String estado) {
+    public CuentaDTO(int numeroCuenta, int saldo, int idCliente, String fechaApertura, String estado) {
         this.numeroCuenta = numeroCuenta;
         this.saldo = saldo;
         this.idCliente = idCliente;

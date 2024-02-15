@@ -5,7 +5,7 @@
 package com.mycompany.bancopersistencia.DAO;
 
 import com.mycompany.bancodominio.Cuenta;
-import com.mycompany.bancopersistencia.DTOS.cuentaDTO;
+import com.mycompany.bancopersistencia.DTOS.CuentaDTO;
 import com.mycompany.bancopersistencia.excepciones.persistenciaException;
 import java.util.List;
 
@@ -15,10 +15,10 @@ import java.util.List;
  */
 public interface ICuenta {
 
-    public Cuenta agregarCuenta(cuentaDTO cuenta) throws persistenciaException;
+    public Cuenta agregarCuenta(CuentaDTO cuenta) throws persistenciaException;
 
     public boolean eliminarCuenta(int id) throws persistenciaException;
-
-    public List<Cuenta> mostrarCuentas(cuentaDTO cuenta) throws persistenciaException;
+    
+    public List<Cuenta> mostrarCuentas(CuentaDTO cuenta) throws persistenciaException;
 
 }

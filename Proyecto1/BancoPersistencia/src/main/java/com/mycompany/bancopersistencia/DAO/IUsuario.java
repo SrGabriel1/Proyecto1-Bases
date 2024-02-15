@@ -4,8 +4,9 @@
  */
 package com.mycompany.bancopersistencia.DAO;
 
+
 import com.mycompany.bancodominio.Usuario;
-import com.mycompany.bancopersistencia.DTOS.usuarioDTO;
+import com.mycompany.bancopersistencia.DTOS.UsuarioDTO;
 import com.mycompany.bancopersistencia.excepciones.persistenciaException;
 import java.util.List;
 
@@ -15,8 +16,9 @@ import java.util.List;
  */
 public interface IUsuario {
 
-    public Usuario crearUsuario(usuarioDTO usuario) throws persistenciaException;
+    public Usuario crearUsuario(UsuarioDTO usuario) throws persistenciaException;
 
     public List<Usuario> mostrarUsuarios() throws persistenciaException;
 
+    public Usuario consultarUsuario(UsuarioDTO usuario) throws persistenciaException;
 }

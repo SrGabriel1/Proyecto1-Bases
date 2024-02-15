@@ -5,7 +5,7 @@
 package com.mycompany.bancopersistencia.DAO;
 
 import com.mycompany.bancodominio.Cliente;
-import com.mycompany.bancopersistencia.DTOS.clienteDTO;
+import com.mycompany.bancopersistencia.DTOS.ClienteDTO;
 import com.mycompany.bancopersistencia.conexion.IConexionBD;
 import com.mycompany.bancopersistencia.excepciones.persistenciaException;
 import java.sql.Connection;
@@ -22,17 +22,17 @@ import java.util.logging.Logger;
  *
  * @author LV322
  */
-public class clienteDAO implements ICliente {
+public class ClienteDAO implements ICliente {
 
     IConexionBD conexionBD;
-    private static final Logger LOG = Logger.getLogger(clienteDAO.class.getName());
+    private static final Logger LOG = Logger.getLogger(ClienteDAO.class.getName());
 
-    public clienteDAO(IConexionBD conexionBD) {
+    public ClienteDAO(IConexionBD conexionBD) {
         this.conexionBD = conexionBD;
     }
 
     @Override
-    public Cliente agregarCliente(clienteDTO cliente) throws persistenciaException {
+    public Cliente agregarCliente(ClienteDTO cliente) throws persistenciaException {
         String sentenciaSQL = "insert into clientes(nombre,apellidoPaterno,apellidoMaterno,fechaNacimiento,numeroCasa,calle,colonia,edad) values (?,?,?,?,?,?,?,?)";
 
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
@@ -84,7 +84,7 @@ public class clienteDAO implements ICliente {
     }
 
     @Override
-    public List<Cliente> ConsultarClientes() throws persistenciaException {
+    public List<Cliente> consultarClientes() throws persistenciaException {
         String sentencia = "select idCliente, nombre, apellidoPaterno, apellidoMaterno,fechaNacimiento,numeroCasa,calle,colonia,edad from clientes;";
         List<Cliente> listaClientes = new ArrayList<>();
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia)) {
@@ -108,6 +108,28 @@ public class clienteDAO implements ICliente {
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "No se encontraron clientes", e);
             throw new persistenciaException("No hay clientes", e);
+        }
+    }
+
+    @Override
+    public Cliente consultarClientePorID(int id) throws persistenciaException {
+        //1. Realizar la consulta a la BD
+        String sentencia = "Select * from clientes where idCliente=?";
+        //2 Realizar la consulta
+        try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+            //Mandar el ID al comando
+            comandoSQL.setInt(1, id);
+            //Ejecutamos el comando 
+            ResultSet resultado = comandoSQL.executeQuery();
+            resultado.next();
+
+            Cliente clienteConsultado = new Cliente(resultado.getInt(1), resultado.getInt("edad"), resultado.getString("nombre"),
+                    resultado.getString("apellidoPaterno"), resultado.getString("apellidoMaterno"), resultado.getString("fechaNacimiento"),
+                    resultado.getString("calle"), resultado.getString("colonia"));
+            return clienteConsultado;
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "No se pudo encontrar el cliente", e);
+            throw new persistenciaException("No se pudo encontrar el cliente", e);
         }
     }
 

@@ -11,20 +11,20 @@ import java.util.Objects;
  * @author yohan
  */
 public class Usuario {
-    int idUsuario,contrasena,idCliente;
-    String usuario;
+    int idUsuario,idCliente;
+    String usuario,contrasena;
 
     public Usuario() {
     }
 
-    public Usuario(int idUsuario, int contrasena, int idCliente, String usuario) {
+    public Usuario(int idUsuario,  int idCliente, String usuario,String contrasena) {
         this.idUsuario = idUsuario;
         this.contrasena = contrasena;
         this.idCliente = idCliente;
         this.usuario = usuario;
     }
 
-    public Usuario(int contrasena, int idCliente, String usuario) {
+    public Usuario( int idCliente, String usuario,String contrasena) {
         this.contrasena = contrasena;
         this.idCliente = idCliente;
         this.usuario = usuario;
@@ -38,11 +38,11 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
 
-    public int getContrasena() {
+    public String getContrasena() {
         return contrasena;
     }
 
-    public void setContrasena(int contrasena) {
+    public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
 
@@ -64,11 +64,11 @@ public class Usuario {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 59 * hash + this.idUsuario;
-        hash = 59 * hash + this.contrasena;
-        hash = 59 * hash + this.idCliente;
-        hash = 59 * hash + Objects.hashCode(this.usuario);
+        int hash = 3;
+        hash = 29 * hash + this.idUsuario;
+        hash = 29 * hash + this.idCliente;
+        hash = 29 * hash + Objects.hashCode(this.usuario);
+        hash = 29 * hash + Objects.hashCode(this.contrasena);
         return hash;
     }
 
@@ -87,15 +87,16 @@ public class Usuario {
         if (this.idUsuario != other.idUsuario) {
             return false;
         }
-        if (this.contrasena != other.contrasena) {
-            return false;
-        }
         if (this.idCliente != other.idCliente) {
             return false;
         }
-        return Objects.equals(this.usuario, other.usuario);
+        if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
+        return Objects.equals(this.contrasena, other.contrasena);
     }
 
+   
     @Override
     public String toString() {
         return "Usuario{" + "idUsuario=" + idUsuario + ", contrasena=" + contrasena + ", idCliente=" + idCliente + ", usuario=" + usuario + '}';

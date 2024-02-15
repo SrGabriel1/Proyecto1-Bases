@@ -4,8 +4,9 @@
  */
 package com.mycompany.bancopersistencia.DAO;
 
+
 import com.mycompany.bancodominio.Cuenta;
-import com.mycompany.bancopersistencia.DTOS.cuentaDTO;
+import com.mycompany.bancopersistencia.DTOS.CuentaDTO;
 import com.mycompany.bancopersistencia.conexion.IConexionBD;
 import com.mycompany.bancopersistencia.excepciones.persistenciaException;
 import java.sql.Connection;
@@ -22,18 +23,18 @@ import java.util.logging.Logger;
  *
  * @author yohan
  */
-public class cuentaDAO implements ICuenta {
+public class CuentaDAO implements ICuenta {
 
     IConexionBD conexionBD;
-    private static final Logger LOG = Logger.getLogger(cuentaDAO.class.getName());
+    private static final Logger LOG = Logger.getLogger(CuentaDAO.class.getName());
 
-    public cuentaDAO(IConexionBD conexionBD) {
+    public CuentaDAO(IConexionBD conexionBD) {
         this.conexionBD = conexionBD;
     }
 
     @Override
-    public Cuenta agregarCuenta(cuentaDTO cuenta) throws persistenciaException {
-        String sentenciaSQL = "insert into cuentas(numeroCuenta,fechaApertura,saldo,estado,idCliente) values (?,?,?,?,?)";
+    public Cuenta agregarCuenta(CuentaDTO cuenta) throws persistenciaException {
+        String sentenciaSQL = "insert into Cuentas(numeroCuenta,fechaApertura,saldo,estado,idCliente) values (?,?,?,?,?)";
 
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
             comandoSQL.setInt(1, cuenta.getNumeroCuenta());
@@ -68,7 +69,7 @@ public class cuentaDAO implements ICuenta {
     }
 
     @Override
-    public List<Cuenta> mostrarCuentas(cuentaDTO cuenta) throws persistenciaException {
+    public List<Cuenta> mostrarCuentas(CuentaDTO cuenta) throws persistenciaException {
         String sentencia = "select idCuenta, numeroCuenta, fechaApertura, saldo,estado,idCliente from usuarios;";
         List<Cuenta> listaCuenta = new ArrayList<>();
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia)) {

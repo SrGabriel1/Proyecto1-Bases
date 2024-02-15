@@ -8,25 +8,25 @@ package com.mycompany.bancopersistencia.DTOS;
  *
  * @author yohan
  */
-public class usuarioDTO {
+public class UsuarioDTO {
 
-    int contrasena, idCliente;
-    String usuario;
+    int idCliente;
+    String usuario, contrasena;
 
-    public usuarioDTO() {
+    public UsuarioDTO() {
     }
 
-    public usuarioDTO(int contrasena, int idCliente, String usuario) {
+    public UsuarioDTO(String contrasena, int idCliente, String usuario) {
         this.contrasena = contrasena;
         this.idCliente = idCliente;
         this.usuario = usuario;
     }
 
-    public int getContrasena() {
+    public String getContrasena() {
         return contrasena;
     }
 
-    public void setContrasena(int contrasena) {
+    public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
 
