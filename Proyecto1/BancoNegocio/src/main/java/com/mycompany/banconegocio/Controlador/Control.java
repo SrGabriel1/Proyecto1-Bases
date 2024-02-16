@@ -54,7 +54,8 @@ public class Control {
                 System.exit(0);
             }
         }
-        clienteDAO.agregarCliente(new ClienteDTO(cliente.getNumeroCasa(), cliente.getEdad(), cliente.getNombre(), cliente.getApellidoPaterno(), cliente.getApellidoMaterno(), cliente.getFechaNacimiento(), cliente.getCalle(), cliente.getColonia()));
+        clienteDAO.agregarCliente(new ClienteDTO(cliente.getNumeroCasa(), cliente.getEdad(), cliente.getNombre(), cliente.getApellidoPaterno(), 
+                cliente.getApellidoMaterno(), cliente.getFechaNacimiento(), cliente.getCalle(), cliente.getColonia(),cliente.getUsuario(),cliente.getContrasena()));
     }
 
     public void agregarCuenta(Cuenta cuenta) throws persistenciaException {

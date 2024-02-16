@@ -14,6 +14,7 @@ public class Cliente {
 
     int idCliente, numeroCasa, edad;
     String nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, calle, colonia;
+    String usuario,contrasena;
 
     /**
      * Clase del cliente
@@ -36,8 +37,10 @@ public class Cliente {
      * relacionarlo para su direccion
      * @param colonia El nombre de la colonia de donde vive el cliente para
      * relacionarlo para su direccion
+     * @param usuario El usuario que usara el cliente para abrir su aplicacion
+     * @param contrasena La contraseña  que usara el cliente para abrir su aplicacion
      */
-    public Cliente(int idCliente, int numeroCasa, int edad, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, String calle, String colonia) {
+    public Cliente(int idCliente, int numeroCasa, int edad, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, String calle, String colonia, String usuario, String contrasena) {
         this.idCliente = idCliente;
         this.numeroCasa = numeroCasa;
         this.edad = edad;
@@ -47,6 +50,8 @@ public class Cliente {
         this.fechaNacimiento = fechaNacimiento;
         this.calle = calle;
         this.colonia = colonia;
+        this.usuario = usuario;
+        this.contrasena = contrasena;
     }
 
     /**
@@ -62,8 +67,10 @@ public class Cliente {
      * relacionarlo para su direccion
      * @param colonia El nombre de la colonia de donde vive el cliente para
      * relacionarlo para su direccion
+      * @param usuario El usuario que usara el cliente para abrir su aplicacion
+     * @param contrasena La contraseña  que usara el cliente para abrir su aplicacion
      */
-    public Cliente(int numeroCasa, int edad, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, String calle, String colonia) {
+    public Cliente(int numeroCasa, int edad, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, String calle, String colonia, String usuario, String contrasena) {
         this.numeroCasa = numeroCasa;
         this.edad = edad;
         this.nombre = nombre;
@@ -72,7 +79,10 @@ public class Cliente {
         this.fechaNacimiento = fechaNacimiento;
         this.calle = calle;
         this.colonia = colonia;
+        this.usuario = usuario;
+        this.contrasena = contrasena;
     }
+
 
     /**
      * Metodo para agregar un domicilio del cliente
@@ -253,23 +263,41 @@ public class Cliente {
         this.colonia = colonia;
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
     /**
      * Metodo que crea un numero unico con todos los datos del cliente
      *
      * @return regresa el numero unico
      */
-    @Override
+    @Override  
     public int hashCode() {
-        int hash = 3;
-        hash = 17 * hash + this.idCliente;
-        hash = 17 * hash + this.numeroCasa;
-        hash = 17 * hash + this.edad;
-        hash = 17 * hash + Objects.hashCode(this.nombre);
-        hash = 17 * hash + Objects.hashCode(this.apellidoPaterno);
-        hash = 17 * hash + Objects.hashCode(this.apellidoMaterno);
-        hash = 17 * hash + Objects.hashCode(this.fechaNacimiento);
-        hash = 17 * hash + Objects.hashCode(this.calle);
-        hash = 17 * hash + Objects.hashCode(this.colonia);
+        int hash = 5;
+        hash = 67 * hash + this.idCliente;
+        hash = 67 * hash + this.numeroCasa;
+        hash = 67 * hash + this.edad;
+        hash = 67 * hash + Objects.hashCode(this.nombre);
+        hash = 67 * hash + Objects.hashCode(this.apellidoPaterno);
+        hash = 67 * hash + Objects.hashCode(this.apellidoMaterno);
+        hash = 67 * hash + Objects.hashCode(this.fechaNacimiento);
+        hash = 67 * hash + Objects.hashCode(this.calle);
+        hash = 67 * hash + Objects.hashCode(this.colonia);
+        hash = 67 * hash + Objects.hashCode(this.usuario);
+        hash = 67 * hash + Objects.hashCode(this.contrasena);
         return hash;
     }
 
@@ -279,7 +307,7 @@ public class Cliente {
      * @param obj es el tipo de objeto que se usara para comparar
      * @return regrsa falso si no es igual y verdadero si es igual
      */
-    @Override
+    @Override   
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -315,7 +343,13 @@ public class Cliente {
         if (!Objects.equals(this.calle, other.calle)) {
             return false;
         }
-        return Objects.equals(this.colonia, other.colonia);
+        if (!Objects.equals(this.colonia, other.colonia)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
+        return Objects.equals(this.contrasena, other.contrasena);
     }
 
     /**

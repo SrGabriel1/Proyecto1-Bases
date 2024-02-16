@@ -33,7 +33,7 @@ public class ClienteDAO implements ICliente {
 
     @Override
     public Cliente agregarCliente(ClienteDTO cliente) throws persistenciaException {
-        String sentenciaSQL = "insert into clientes(nombre,apellidoPaterno,apellidoMaterno,fechaNacimiento,numeroCasa,calle,colonia,edad) values (?,?,?,?,?,?,?,?)";
+        String sentenciaSQL = "insert into clientes(nombre,apellidoPaterno,apellidoMaterno,fechaNacimiento,numeroCasa,calle,colonia,edad,usuario,contrasena) values (?,?,?,?,?,?,?,?,?,?)";
 
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
             comandoSQL.setString(1, cliente.getNombre());
@@ -49,7 +49,8 @@ public class ClienteDAO implements ICliente {
             LOG.log(Level.INFO, "se han agregado {0}", resultado);
             ResultSet res = comandoSQL.getGeneratedKeys();
             res.next();
-            Cliente clienteGuardado = new Cliente(res.getInt(5), res.getInt(8), cliente.getNombre(), cliente.getApellidoPaterno(), cliente.getApellidoMaterno(), cliente.getFechaNacimiento(), cliente.getCalle(), cliente.getColonia());
+            Cliente clienteGuardado = new Cliente(res.getInt(5), res.getInt(8), cliente.getNombre(), cliente.getApellidoPaterno(), cliente.getApellidoMaterno(), 
+                    cliente.getFechaNacimiento(), cliente.getCalle(), cliente.getColonia(),cliente.getUsuario(),cliente.getContrasena());
             return clienteGuardado;
 
         } catch (SQLException e) {
@@ -85,7 +86,7 @@ public class ClienteDAO implements ICliente {
 
     @Override
     public List<Cliente> consultarClientes() throws persistenciaException {
-        String sentencia = "select idCliente, nombre, apellidoPaterno, apellidoMaterno,fechaNacimiento,numeroCasa,calle,colonia,edad from clientes;";
+        String sentencia = "select idCliente, nombre, apellidoPaterno, apellidoMaterno,fechaNacimiento,numeroCasa,calle,colonia,edad,usuario,contrasena from clientes;";
         List<Cliente> listaClientes = new ArrayList<>();
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia)) {
             ResultSet resultado = comandoSQL.executeQuery();
@@ -99,8 +100,10 @@ public class ClienteDAO implements ICliente {
                 String calle = resultado.getString("calle");
                 String colonia = resultado.getString("colonia");
                 int edad = resultado.getInt("edad");
+                String usuario = resultado.getString("usuario");
+                String contrasena = resultado.getString("contrasena");
 
-                Cliente clienteConsultado = new Cliente(id, numeroCasa, edad, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, calle, colonia);
+                Cliente clienteConsultado = new Cliente(id, numeroCasa, edad, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, calle, colonia,usuario,contrasena);
                 listaClientes.add(clienteConsultado);
             }
             LOG.log(Level.INFO, "Se consultaron{0}", listaClientes.size());
@@ -125,7 +128,7 @@ public class ClienteDAO implements ICliente {
 
             Cliente clienteConsultado = new Cliente(resultado.getInt(1), resultado.getInt("edad"), resultado.getString("nombre"),
                     resultado.getString("apellidoPaterno"), resultado.getString("apellidoMaterno"), resultado.getString("fechaNacimiento"),
-                    resultado.getString("calle"), resultado.getString("colonia"));
+                    resultado.getString("calle"), resultado.getString("colonia"),resultado.getString("usuario"),resultado.getString("contrasena"));
             return clienteConsultado;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "No se pudo encontrar el cliente", e);

@@ -6,6 +6,7 @@ package GUI;
 
 import com.mycompany.bancodominio.Cliente;
 import com.mycompany.bancodominio.Usuario;
+import com.mycompany.bancopersistencia.excepciones.persistenciaException;
 import javax.swing.JOptionPane;
 
 /**
@@ -144,11 +145,11 @@ public class frmCrearUsuario2 extends javax.swing.JFrame {
                 cliente.setCalle(textCalle.getText());
                 cliente.setColonia(textColonia.getText());
                 cliente.setNumeroCasa(Integer.parseInt(textNumCasa.getText()));
-                usuario.setContrasena(textContraseña.getText());
-                usuario.setUsuario(textNombreUsuario.getText());
+                cliente.setContrasena(textContraseña.getText());
+                cliente.setUsuario(textNombreUsuario.getText());
             }
-
         } catch (Exception e) {
+            
         }
 
         frmCrearUsuario frmUsuario = new frmCrearUsuario();
