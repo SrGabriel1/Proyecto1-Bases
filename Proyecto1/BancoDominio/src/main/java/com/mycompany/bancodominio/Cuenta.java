@@ -11,13 +11,13 @@ import java.util.Objects;
  * @author yohan
  */
 public class Cuenta {
-    int idCuenta,numeroCuenta,saldo,idCliente;
-    String fechaApertura,estado;
+    int idCuenta,saldo,idCliente;
+    String fechaApertura,estado,numeroCuenta;
 
     public Cuenta() {
     }
 
-    public Cuenta(int idCuenta, int numeroCuenta, int saldo, int idCliente, String fechaApertura, String estado) {
+    public Cuenta(int idCuenta, String numeroCuenta, int saldo, int idCliente, String fechaApertura, String estado) {
         this.idCuenta = idCuenta;
         this.numeroCuenta = numeroCuenta;
         this.saldo = saldo;
@@ -26,7 +26,7 @@ public class Cuenta {
         this.estado = estado;
     }
 
-    public Cuenta(int numeroCuenta, int saldo, int idCliente, String fechaApertura, String estado) {
+    public Cuenta(String numeroCuenta, int saldo, int idCliente, String fechaApertura, String estado) {
         this.numeroCuenta = numeroCuenta;
         this.saldo = saldo;
         this.idCliente = idCliente;
@@ -42,11 +42,11 @@ public class Cuenta {
         this.idCuenta = idCuenta;
     }
 
-    public int getNumeroCuenta() {
+    public String getNumeroCuenta() {
         return numeroCuenta;
     }
 
-    public void setNumeroCuenta(int numeroCuenta) {
+    public void setNumeroCuenta(String numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }
 
@@ -86,7 +86,7 @@ public class Cuenta {
     public int hashCode() {
         int hash = 7;
         hash = 41 * hash + this.idCuenta;
-        hash = 41 * hash + this.numeroCuenta;
+        hash = 41 * hash + Objects.hashCode(this.numeroCuenta);
         hash = 41 * hash + this.saldo;
         hash = 41 * hash + this.idCliente;
         hash = 41 * hash + Objects.hashCode(this.fechaApertura);
