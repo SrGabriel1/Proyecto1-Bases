@@ -16,6 +16,7 @@ import com.mycompany.bancopersistencia.DTOS.UsuarioDTO;
 import com.mycompany.bancopersistencia.conexion.ConexionBD;
 import com.mycompany.bancopersistencia.conexion.IConexionBD;
 import com.mycompany.bancopersistencia.excepciones.persistenciaException;
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,44 +30,53 @@ public class Control {
     public UsuarioDAO usuarioDAO;
     String cadenaConexion = "jdbc:mysql://localhost:3306/banco";
     String user = "root";
-    String contra = "16426Mel";
+    String contra = "1233";
     IConexionBD conexionBD = new ConexionBD(cadenaConexion, user, contra);
+    Random random = new Random();
+    StringBuilder numeroAleatorio;
 
     public Control() {
         this.cuentaDAO = new CuentaDAO(conexionBD);
         this.clienteDAO = new ClienteDAO(conexionBD);
-        this.usuarioDAO = new UsuarioDAO(conexionBD);
-    }
-
-    public void agregarUsuario(Usuario usuario) throws persistenciaException {
-        for (int i = 0; i < usuarioDAO.mostrarUsuarios().size(); i++) {
-            if (usuarioDAO.mostrarUsuarios().get(i).getUsuario().equalsIgnoreCase(usuario.getUsuario())) {
-                JOptionPane.showMessageDialog(null, "El nombre de usuario ingresado ya existe","Error",JOptionPane.ERROR_MESSAGE);
-                 throw new persistenciaException("El nombre de usuario ingresado ya existe");
-            }
-        }
-        usuarioDAO.crearUsuario(new UsuarioDTO(usuario.getContrasena(), usuario.getIdCliente(), usuario.getUsuario()));
     }
 
     public void agregarCliente(Cliente cliente) throws persistenciaException, Throwable {
         for (int i = 0; i < clienteDAO.consultarClientes().size(); i++) {
-            if (clienteDAO.consultarClientes().get(i).getIdCliente() == cliente.getIdCliente()) {
-                System.exit(0);
+            if (clienteDAO.consultarClientes().get(i).getUsuario().equalsIgnoreCase(cliente.getUsuario())) {
+                JOptionPane.showMessageDialog(null, "El usuario ya existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                throw new persistenciaException("El usuario ya existe");
             }
         }
-        clienteDAO.agregarCliente(new ClienteDTO(cliente.getNumeroCasa(), cliente.getEdad(), cliente.getNombre(), cliente.getApellidoPaterno(), 
-                cliente.getApellidoMaterno(), cliente.getFechaNacimiento(), cliente.getCalle(), cliente.getColonia(),cliente.getUsuario(),cliente.getContrasena()));
+        clienteDAO.agregarCliente(new ClienteDTO(cliente.getNumeroCasa(), cliente.getEdad(), cliente.getNombre(), cliente.getApellidoPaterno(),
+                cliente.getApellidoMaterno(), cliente.getFechaNacimiento(), cliente.getCalle(), cliente.getColonia(),
+                cliente.getUsuario(), cliente.getContrasena()));
     }
 
-    public void agregarCuenta(Cuenta cuenta) throws persistenciaException {
-        for (int i = 0; i < cuentaDAO.mostrarCuentas().size(); i++) {
-            if (cuentaDAO.mostrarCuentas().get(i).getIdCuenta() == cuenta.getIdCuenta()) {
-                System.exit(0);
+    public Cliente consultarCliente(ClienteDTO cliente) throws persistenciaException {
+        return clienteDAO.consultarCliente(cliente);
+    }
+
+    public CuentaDTO agregarCuenta(Cliente cliente) throws persistenciaException {
+        JOptionPane.showMessageDialog(null, "hola");
+        boolean bandera = true;
+        while (bandera) {
+            // Generar un número aleatorio de 16 dígitos como una cadena
+            numeroAleatorio = new StringBuilder();
+            for (int i = 0; i < 16; i++) {
+                int digito = random.nextInt(10); // Generar un dígito aleatorio (0-9)
+                numeroAleatorio.append(digito); // Agregar el dígito al número aleatorio
+            }
+            if (!cuentaDAO.mostrarCuentas().isEmpty()) {
+                for (int i = 0; i < cuentaDAO.mostrarCuentas().size(); i++) {
+                    if (!cuentaDAO.mostrarCuentas().get(i).getNumeroCuenta().equalsIgnoreCase(numeroAleatorio.toString())) {
+                        bandera = false;
+                        break;
+                    }
+                }
+            }else{
+                bandera=false;
             }
         }
-        cuentaDAO.agregarCuenta(new CuentaDTO(cuenta.getNumeroCuenta(),cuenta.getSaldo(), cuenta.getIdCuenta(), cuenta.getFechaApertura(), cuenta.getEstado()));
-    }
-    public Usuario consultarUsuario(UsuarioDTO usuario) throws persistenciaException {
-        return usuarioDAO.consultarUsuario(usuario);
+        return cuentaDAO.crearCuenta(numeroAleatorio.toString(), cliente.getIdCliente());
     }
 }
