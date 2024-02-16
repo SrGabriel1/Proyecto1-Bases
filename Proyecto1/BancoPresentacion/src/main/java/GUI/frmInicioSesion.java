@@ -4,8 +4,10 @@
  */
 package GUI;
 
+import com.mycompany.bancodominio.Cliente;
 import com.mycompany.bancodominio.Usuario;
 import com.mycompany.banconegocio.Controlador.Control;
+import com.mycompany.bancopersistencia.DTOS.ClienteDTO;
 import com.mycompany.bancopersistencia.DTOS.UsuarioDTO;
 import com.mycompany.bancopersistencia.excepciones.persistenciaException;
 import javax.swing.JOptionPane;
@@ -24,7 +26,7 @@ public class frmInicioSesion extends javax.swing.JFrame {
     public frmInicioSesion() {
         initComponents();
         textUsuario.setBackground(new java.awt.Color(0, 0, 0, 1));
-        textContra.setBackground(new java.awt.Color(0, 0, 0, 1));
+        fieldContra.setBackground(new java.awt.Color(0, 0, 0, 1));
     }
 
     /**
@@ -39,8 +41,8 @@ public class frmInicioSesion extends javax.swing.JFrame {
         botonIniciarSesion = new javax.swing.JButton();
         botonCrearUsuario = new javax.swing.JButton();
         botonRealizarRetiro = new javax.swing.JButton();
-        textContra = new javax.swing.JTextField();
         textUsuario = new javax.swing.JTextField();
+        fieldContra = new javax.swing.JPasswordField();
         labelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -76,22 +78,15 @@ public class frmInicioSesion extends javax.swing.JFrame {
         });
         getContentPane().add(botonRealizarRetiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 640, 480, 60));
 
-        textContra.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        textContra.setForeground(new java.awt.Color(0, 0, 0));
-        textContra.setToolTipText("");
-        textContra.setBorder(null);
-        textContra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textContraActionPerformed(evt);
-            }
-        });
-        getContentPane().add(textContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 380, 450, 40));
-
         textUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         textUsuario.setForeground(new java.awt.Color(0, 0, 0));
         textUsuario.setToolTipText("");
         textUsuario.setBorder(null);
         getContentPane().add(textUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 270, 450, 40));
+
+        fieldContra.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        fieldContra.setBorder(null);
+        getContentPane().add(fieldContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 380, 450, 40));
 
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Inicio de Sesión.png"))); // NOI18N
         labelFondo.setText("jLabel1");
@@ -116,10 +111,11 @@ public class frmInicioSesion extends javax.swing.JFrame {
 
     private void botonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarSesionActionPerformed
         try {
-            UsuarioDTO usuario = new UsuarioDTO(textContra.getText(), textUsuario.getText());
-            Usuario usuarioIngresado= control.consultarUsuario(usuario);
+            String contra = new String(fieldContra.getPassword());
+            ClienteDTO cliente = new ClienteDTO(contra, textUsuario.getText());
+            Cliente clienteIngresado= control.consultarCliente(cliente);
             JOptionPane.showMessageDialog(null, "Se ha ingresado sesion correctamente", "Notificacion", JOptionPane.INFORMATION_MESSAGE);
-            frmMenuUsuario frmMenuUsuario = new frmMenuUsuario(usuarioIngresado);
+            frmMenuUsuario frmMenuUsuario = new frmMenuUsuario(clienteIngresado);
             frmMenuUsuario.setVisible(true);
             this.setVisible(false);
         } catch (persistenciaException e) {
@@ -127,10 +123,6 @@ public class frmInicioSesion extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_botonIniciarSesionActionPerformed
-
-    private void textContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textContraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textContraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,8 +163,8 @@ public class frmInicioSesion extends javax.swing.JFrame {
     private javax.swing.JButton botonCrearUsuario;
     private javax.swing.JButton botonIniciarSesion;
     private javax.swing.JButton botonRealizarRetiro;
+    private javax.swing.JPasswordField fieldContra;
     private javax.swing.JLabel labelFondo;
-    private javax.swing.JTextField textContra;
     private javax.swing.JTextField textUsuario;
     // End of variables declaration//GEN-END:variables
 }

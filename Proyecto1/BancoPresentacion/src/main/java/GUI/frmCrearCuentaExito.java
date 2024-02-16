@@ -6,6 +6,7 @@ package GUI;
  */
 
 import GUI.*;
+import com.mycompany.bancopersistencia.DTOS.CuentaDTO;
 
 /**
  *
@@ -13,11 +14,20 @@ import GUI.*;
  */
 public class frmCrearCuentaExito extends javax.swing.JFrame {
 
+    private CuentaDTO cuenta;
+
     /**
      * Creates new form frmInicioSesion
      */
     public frmCrearCuentaExito() {
         initComponents();
+    }
+    
+    public frmCrearCuentaExito(CuentaDTO cuenta) {
+        initComponents();
+        this.cuenta=cuenta;
+        labelNumCuenta.setText(cuenta.getNumeroCuenta());
+        labelFechaApertura.setText(cuenta.getFechaApertura());      
     }
 
     /**
@@ -46,8 +56,14 @@ public class frmCrearCuentaExito extends javax.swing.JFrame {
             }
         });
         getContentPane().add(botonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 610, 440, 100));
-        getContentPane().add(labelFechaApertura, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 480, 340, 50));
-        getContentPane().add(labelNumCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 480, 360, 50));
+
+        labelFechaApertura.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        labelFechaApertura.setForeground(new java.awt.Color(102, 102, 102));
+        getContentPane().add(labelFechaApertura, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 470, 210, 60));
+
+        labelNumCuenta.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        labelNumCuenta.setForeground(new java.awt.Color(102, 102, 102));
+        getContentPane().add(labelNumCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 470, 360, 60));
 
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Crear Cuenta - Exito.png"))); // NOI18N
         labelFondo.setText("jLabel1");

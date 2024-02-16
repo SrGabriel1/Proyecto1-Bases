@@ -6,22 +6,41 @@ package GUI;
 
 import com.mycompany.bancodominio.Cliente;
 import com.mycompany.bancodominio.Usuario;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author USER
  */
 public class frmCrearUsuario extends javax.swing.JFrame {
-    Cliente cliente= new Cliente();
+
+    Cliente cliente = new Cliente();
+
     /**
      * Creates new form frmInicioSesion
      */
     public frmCrearUsuario() {
         initComponents();
-        textNombre.setBackground(new java.awt.Color(0,0,0,1));
-        textApellidoPaterno.setBackground(new java.awt.Color(0,0,0,1));
-        textApellidoMaterno.setBackground(new java.awt.Color(0,0,0,1));
-        textFechaNacimiento.setBackground(new java.awt.Color(0,0,0,1));
+        textNombre.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textApellidoPaterno.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textApellidoMaterno.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textFechaNacimiento.setBackground(new java.awt.Color(0, 0, 0, 1));
+    }
+
+    /**
+     * Creates new form frmInicioSesion
+     */
+    public frmCrearUsuario(Cliente cliente) {
+        initComponents();
+        this.cliente = cliente;
+        textNombre.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textNombre.setText(cliente.getNombre());
+        textApellidoPaterno.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textApellidoPaterno.setText(cliente.getApellidoPaterno());
+        textApellidoMaterno.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textApellidoMaterno.setText(cliente.getApellidoMaterno());
+        textFechaNacimiento.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textFechaNacimiento.setText(cliente.getFechaNacimiento());
     }
 
     /**
@@ -71,26 +90,31 @@ public class frmCrearUsuario extends javax.swing.JFrame {
         });
         getContentPane().add(botonCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 540, 60, 50));
 
-        textNombre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        textNombre.setForeground(new java.awt.Color(0, 0, 0));
+        textNombre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        textNombre.setForeground(new java.awt.Color(102, 102, 102));
         textNombre.setToolTipText("");
         textNombre.setBorder(null);
         getContentPane().add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 450, 50));
 
-        textFechaNacimiento.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        textFechaNacimiento.setForeground(new java.awt.Color(0, 0, 0));
+        textFechaNacimiento.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        textFechaNacimiento.setForeground(new java.awt.Color(102, 102, 102));
         textFechaNacimiento.setToolTipText("");
         textFechaNacimiento.setBorder(null);
+        textFechaNacimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFechaNacimientoActionPerformed(evt);
+            }
+        });
         getContentPane().add(textFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 540, 400, 40));
 
-        textApellidoPaterno.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        textApellidoPaterno.setForeground(new java.awt.Color(0, 0, 0));
+        textApellidoPaterno.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        textApellidoPaterno.setForeground(new java.awt.Color(102, 102, 102));
         textApellidoPaterno.setToolTipText("");
         textApellidoPaterno.setBorder(null);
         getContentPane().add(textApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 260, 450, 40));
 
-        textApellidoMaterno.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        textApellidoMaterno.setForeground(new java.awt.Color(0, 0, 0));
+        textApellidoMaterno.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        textApellidoMaterno.setForeground(new java.awt.Color(102, 102, 102));
         textApellidoMaterno.setToolTipText("");
         textApellidoMaterno.setBorder(null);
         getContentPane().add(textApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 400, 450, 40));
@@ -107,24 +131,39 @@ public class frmCrearUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonCalendarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCalendarioActionPerformed
-        // TODO add your handling code here:
+        cliente.setNombre(textNombre.getText());
+        cliente.setApellidoPaterno(textApellidoPaterno.getText());
+        cliente.setApellidoMaterno(textApellidoMaterno.getText());
+        cliente.setFechaNacimiento(textFechaNacimiento.getText());
+        frmCalendario frmCalendario = new frmCalendario(cliente);
+        frmCalendario.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_botonCalendarioActionPerformed
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        frmInicioSesion frmInicio= new frmInicioSesion();
+        frmInicioSesion frmInicio = new frmInicioSesion();
         frmInicio.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContinuarActionPerformed
-        cliente.setNombre(textNombre.getText());
-        cliente.setApellidoPaterno(textApellidoPaterno.getText());
-        cliente.setApellidoMaterno(textApellidoMaterno.getText());
-        cliente.setFechaNacimiento(textFechaNacimiento.getText());
-        frmCrearUsuario2 frmUsuario2= new frmCrearUsuario2(cliente);
-        frmUsuario2.setVisible(true);
-        this.setVisible(false);
+        if (textNombre.getText().equalsIgnoreCase("") || textApellidoPaterno.getText().equalsIgnoreCase("") || textApellidoMaterno.getText().equalsIgnoreCase("") ||
+                textFechaNacimiento.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "No debe haber ningún campo vacio","Error",JOptionPane.ERROR_MESSAGE);
+        } else {
+            cliente.setNombre(textNombre.getText());
+            cliente.setApellidoPaterno(textApellidoPaterno.getText());
+            cliente.setApellidoMaterno(textApellidoMaterno.getText());
+            cliente.setFechaNacimiento(textFechaNacimiento.getText());
+            frmCrearUsuario2 frmUsuario2 = new frmCrearUsuario2(cliente);
+            frmUsuario2.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_botonContinuarActionPerformed
+
+    private void textFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFechaNacimientoActionPerformed
+        
+    }//GEN-LAST:event_textFechaNacimientoActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1,5 +1,6 @@
 package GUI;
 
+import com.mycompany.bancodominio.Cliente;
 import com.mycompany.bancodominio.Usuario;
 
 /*
@@ -12,7 +13,7 @@ import com.mycompany.bancodominio.Usuario;
  * @author USER
  */
 public class frmMenuUsuario extends javax.swing.JFrame {
-    Usuario usuario;
+    Cliente cliente;
     /**
      * Creates new form frmInicioSesion
      */
@@ -23,9 +24,10 @@ public class frmMenuUsuario extends javax.swing.JFrame {
      /**
      * Creates new form frmInicioSesion
      */
-    public frmMenuUsuario(Usuario usuario) {
+    public frmMenuUsuario(Cliente cliente) {
         initComponents();
-        this.usuario=usuario;
+        this.cliente=cliente;
+        labelBienvenida.setText("Bienvenido "+ cliente.getNombre());
     }
 
     /**
@@ -36,6 +38,7 @@ public class frmMenuUsuario extends javax.swing.JFrame {
     private void initComponents() {
 
         botonPerfil = new javax.swing.JButton();
+        labelBienvenida = new javax.swing.JLabel();
         labelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,6 +56,10 @@ public class frmMenuUsuario extends javax.swing.JFrame {
         });
         getContentPane().add(botonPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 10, 110, 100));
 
+        labelBienvenida.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
+        labelBienvenida.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(labelBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 560, 80));
+
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menú de Usuario.png"))); // NOI18N
         labelFondo.setText("jLabel1");
         labelFondo.setMaximumSize(new java.awt.Dimension(1080, 773));
@@ -65,7 +72,7 @@ public class frmMenuUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPerfilActionPerformed
-        frmPerfil frmPerfil= new frmPerfil();
+        frmPerfil frmPerfil= new frmPerfil(cliente);
         frmPerfil.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonPerfilActionPerformed
@@ -110,6 +117,7 @@ public class frmMenuUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonPerfil;
+    private javax.swing.JLabel labelBienvenida;
     private javax.swing.JLabel labelFondo;
     // End of variables declaration//GEN-END:variables
 }

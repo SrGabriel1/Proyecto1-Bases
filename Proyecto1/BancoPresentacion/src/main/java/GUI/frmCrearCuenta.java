@@ -4,8 +4,14 @@ package GUI;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 import GUI.*;
+import com.mycompany.bancodominio.Cliente;
+import com.mycompany.banconegocio.Controlador.Control;
+import com.mycompany.bancopersistencia.DTOS.CuentaDTO;
+import com.mycompany.bancopersistencia.excepciones.persistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,11 +19,20 @@ import GUI.*;
  */
 public class frmCrearCuenta extends javax.swing.JFrame {
 
+    private Cliente cliente;
+    CuentaDTO cuentaAux;
+    Control control = new Control();
+
     /**
      * Creates new form frmInicioSesion
      */
     public frmCrearCuenta() {
         initComponents();
+    }
+
+    public frmCrearCuenta(Cliente cliente) {
+        initComponents();
+        this.cliente = cliente;
     }
 
     /**
@@ -66,13 +81,22 @@ public class frmCrearCuenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed
-        frmCrearCuentaExito frmCrearCuentaExito= new frmCrearCuentaExito();
-        frmCrearCuentaExito.setVisible(true);
-        this.setVisible(false);
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea crear una nueva cuenta?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        // Verificar la opción seleccionada por el usuario
+        if (opcion == JOptionPane.YES_OPTION) {
+            try {
+                cuentaAux = control.agregarCuenta(cliente);
+                frmCrearCuentaExito frmCrearCuentaExito = new frmCrearCuentaExito(cuentaAux);
+                frmCrearCuentaExito.setVisible(true);
+                this.setVisible(false);
+            } catch (persistenciaException ex) {
+                Logger.getLogger(frmCrearCuenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } 
     }//GEN-LAST:event_botonConfirmarActionPerformed
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        frmPerfil frmPerfil= new frmPerfil();
+        frmPerfil frmPerfil = new frmPerfil();
         frmPerfil.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonRegresarActionPerformed

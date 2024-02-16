@@ -4,8 +4,9 @@ package GUI;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 import GUI.*;
+import com.mycompany.bancodominio.Cliente;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,11 +14,21 @@ import GUI.*;
  */
 public class frmPerfil extends javax.swing.JFrame {
 
+    Cliente cliente;
+
     /**
      * Creates new form frmInicioSesion
      */
     public frmPerfil() {
         initComponents();
+    }
+
+    /**
+     * Creates new form frmInicioSesion
+     */
+    public frmPerfil(Cliente cliente) {
+        initComponents();
+        this.cliente = cliente;
     }
 
     /**
@@ -75,19 +86,24 @@ public class frmPerfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearCuentaActionPerformed
-        frmCrearCuenta frmCrearCuenta= new frmCrearCuenta();
+        frmCrearCuenta frmCrearCuenta = new frmCrearCuenta(cliente);
         frmCrearCuenta.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonCrearCuentaActionPerformed
 
     private void botonCerrarSesiónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarSesiónActionPerformed
-        frmInicioSesion frmInicio= new frmInicioSesion();
-        frmInicio.setVisible(true);
-        this.setVisible(false);
+        // Mostrar un diálogo de confirmación
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea cerrar sesión del usuario: " + cliente.getUsuario() + " ?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        // Verificar la opción seleccionada por el usuario
+        if (opcion == JOptionPane.YES_OPTION) {
+            frmInicioSesion frmInicio = new frmInicioSesion();
+            frmInicio.setVisible(true);
+            this.setVisible(false);
+        } 
     }//GEN-LAST:event_botonCerrarSesiónActionPerformed
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        frmMenuUsuario frmMenuUsuario= new frmMenuUsuario();
+        frmMenuUsuario frmMenuUsuario = new frmMenuUsuario();
         frmMenuUsuario.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonRegresarActionPerformed
