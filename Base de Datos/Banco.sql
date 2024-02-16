@@ -14,7 +14,7 @@ edad int,
 usuario varchar(30),
 contrasena  varchar(30)
 );
-create table Usuario(
+create table usuarios(
 idUsuario int primary key auto_increment NOT NULL,
 contrasena  varchar(30),
 usuario varchar(30),
@@ -24,7 +24,7 @@ foreign key(idCliente) references clientes(idCliente)
 
 create table cuentas(
 idCuenta int primary key auto_increment NOT NULL,
-numeroCuenta int(16),
+numeroCuenta varchar(16),
 fechaApertura date,
 saldo int,
 estado varchar(30),
@@ -78,12 +78,12 @@ foreign key(idCliente) references clientes(idCliente)
 -- triggers 
 delimiter $$
 create trigger retiro_sin_cuenta
-after update on retirossincuenta
+after update on retirossincuentas
 for each row
 begin
     -- Verifica si el estado se ha actualizado a 'completado'
     if new.estado = 'completado' then
-        insert into retirossincuenta (idretiro, folio, contraseña, estado, idtransaccion)
+        insert into retirosSincuentas (idretiro, folio, contraseña, estado, idtransaccion)
         values (new.idretiro, new.folio, new.contraseña, new.estado, new.idtransaccion);
     end if;
 end $$
@@ -96,7 +96,7 @@ for each row
 begin
     if new.estado = "eliminada" then
         -- Inserta en cuentasEliminadas
-        insert into cuentaseliminadas (numerocuenta, fechaapertura, fechacierre, saldo, estado, idcliente)
+        insert into cuentasEliminadas (numerocuenta, fechaapertura, fechacierre, saldo, estado, idcliente)
         values (old.numerocuenta, old.fechaapertura, now(), old.saldo, "eliminada", old.idcliente);
     end if;
 end $$
