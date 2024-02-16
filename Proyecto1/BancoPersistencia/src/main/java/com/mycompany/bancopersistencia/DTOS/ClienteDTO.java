@@ -16,7 +16,7 @@ public class ClienteDTO {
     public ClienteDTO() {
     }
 
-    public ClienteDTO(int numeroCasa, int edad, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, String calle, String colonia, String contrasena, String usuario) {
+    public ClienteDTO(int numeroCasa, int edad, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, String calle, String colonia, String usuario, String contrasena) {
         this.numeroCasa = numeroCasa;
         this.edad = edad;
         this.nombre = nombre;
