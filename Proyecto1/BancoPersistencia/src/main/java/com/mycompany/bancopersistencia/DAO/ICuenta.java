@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface ICuenta {
 
-    public Cuenta agregarCuenta(CuentaDTO cuenta) throws persistenciaException;
+    public CuentaDTO crearCuenta(String numCuenta, int idCliente) throws persistenciaException;
 
     public boolean eliminarCuenta(int id) throws persistenciaException;
     

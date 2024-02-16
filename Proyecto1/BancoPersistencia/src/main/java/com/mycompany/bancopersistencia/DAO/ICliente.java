@@ -15,11 +15,13 @@ import java.util.List;
  */
 public interface ICliente {
 
-    public Cliente agregarCliente(ClienteDTO cliente) throws persistenciaException;
+    public void agregarCliente(ClienteDTO cliente) throws persistenciaException;
 
     public boolean actualizarCliente(Cliente cliente) throws persistenciaException;
 
     public List<Cliente> consultarClientes() throws persistenciaException;
 
     public Cliente consultarClientePorID(int id) throws persistenciaException;
+    
+    public Cliente consultarCliente(ClienteDTO cliente) throws persistenciaException;
 }

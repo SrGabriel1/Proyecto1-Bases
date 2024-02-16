@@ -10,13 +10,13 @@ package com.mycompany.bancopersistencia.DTOS;
  */
 public class CuentaDTO {
 
-    int numeroCuenta, saldo, idCliente;
-    String fechaApertura, estado;
+    int saldo, idCliente;
+    String fechaApertura, estado, numeroCuenta;
 
     public CuentaDTO() {
     }
 
-    public CuentaDTO(int numeroCuenta, int saldo, int idCliente, String fechaApertura, String estado) {
+    public CuentaDTO(String numeroCuenta, int saldo, int idCliente, String fechaApertura, String estado) {
         this.numeroCuenta = numeroCuenta;
         this.saldo = saldo;
         this.idCliente = idCliente;
@@ -24,11 +24,16 @@ public class CuentaDTO {
         this.estado = estado;
     }
 
-    public int getNumeroCuenta() {
+    public CuentaDTO(String fechaApertura, String numeroCuenta) {
+        this.fechaApertura = fechaApertura;
+        this.numeroCuenta = numeroCuenta;
+    }
+
+    public String getNumeroCuenta() {
         return numeroCuenta;
     }
 
-    public void setNumeroCuenta(int numeroCuenta) {
+    public void setNumeroCuenta(String numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }
 

@@ -33,26 +33,23 @@ public class CuentaDAO implements ICuenta {
     }
 
     @Override
-    public Cuenta agregarCuenta(CuentaDTO cuenta) throws persistenciaException {
-        String sentenciaSQL = "insert into Cuentas(numeroCuenta,fechaApertura,saldo,estado,idCliente) values (?,?,?,?,?)";
-
-        try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
-            comandoSQL.setInt(1, cuenta.getNumeroCuenta());
-            comandoSQL.setString(2, cuenta.getFechaApertura());
-            comandoSQL.setInt(3, cuenta.getSaldo());
-            comandoSQL.setString(4, cuenta.getEstado());
-            comandoSQL.setInt(5, cuenta.getIdCliente());
+    public CuentaDTO crearCuenta(String numCuenta, int idCliente) throws persistenciaException {
+        String sentenciaSQL = "insert into Cuentas(numeroCuenta,fechaApertura,saldo,estado,idCliente) values (?, now() ,0,'Activa',?)";
+        String sentenciaSQL2 = "select fechaApertura from cuentas where idCuenta=last_insert_id()";
+        try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement comandoSQL2 = conexion.prepareStatement(sentenciaSQL2, Statement.RETURN_GENERATED_KEYS);) {
+            comandoSQL.setString(1, numCuenta);
+            comandoSQL.setInt(2, idCliente);
 
             int resultado = comandoSQL.executeUpdate();
             LOG.log(Level.INFO, "se han agregado {0}", resultado);
-            ResultSet res = comandoSQL.getGeneratedKeys();
+            ResultSet res= comandoSQL2.executeQuery();
             res.next();
-            Cuenta cuentaGuardada = new Cuenta(res.getInt(1), res.getInt(3), res.getInt(5), cuenta.getFechaApertura(), cuenta.getEstado());
-            return cuentaGuardada;
-
+            CuentaDTO cuentaGenerada= new CuentaDTO(res.getString("fechaApertura"), numCuenta);
+            return cuentaGenerada;
         } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "No se pudo agregar la cuenta", e);
-            throw new persistenciaException("No se pudo agregar la cuenta");
+            LOG.log(Level.SEVERE, "No se pudo crear la cuenta", e);
+            throw new persistenciaException("No se crear agregar la cuenta");
         }
     }
 
@@ -70,13 +67,13 @@ public class CuentaDAO implements ICuenta {
 
     @Override
     public List<Cuenta> mostrarCuentas() throws persistenciaException {
-        String sentencia = "select idCuenta, numeroCuenta, fechaApertura, saldo,estado,idCliente from usuarios;";
+        String sentencia = "select * from usuarios;";
         List<Cuenta> listaCuenta = new ArrayList<>();
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia)) {
             ResultSet resultado = comandoSQL.executeQuery();
             while (resultado.next()) {
                 int id = resultado.getInt("idUsuario");
-                int numeroCuenta = resultado.getInt("numeroCuenta");
+                String numeroCuenta = resultado.getString("numeroCuenta");
                 String fechaApertura = resultado.getString("fechaApertura");
                 int saldo = resultado.getInt("saldo");
                 String estado = resultado.getString("estado");

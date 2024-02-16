@@ -29,6 +29,11 @@ public class ClienteDTO {
         this.usuario = usuario;
     }
 
+    public ClienteDTO(String contrasena, String usuario) {
+        this.contrasena = contrasena;
+        this.usuario = usuario;
+    }
+ 
     public String getContrasena() {
         return contrasena;
     }

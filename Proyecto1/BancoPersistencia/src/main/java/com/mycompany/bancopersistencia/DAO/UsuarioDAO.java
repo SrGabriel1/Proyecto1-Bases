@@ -4,6 +4,7 @@
  */
 package com.mycompany.bancopersistencia.DAO;
 
+import com.mycompany.bancodominio.Cliente;
 import com.mycompany.bancodominio.Usuario;
 import com.mycompany.bancopersistencia.DTOS.UsuarioDTO;
 import com.mycompany.bancopersistencia.conexion.IConexionBD;
@@ -22,7 +23,7 @@ import java.util.logging.Logger;
  *
  * @author yohan
  */
-public class UsuarioDAO implements IUsuario {
+public abstract class UsuarioDAO implements IUsuario {
 
     IConexionBD conexionBD;
     private static final Logger LOG = Logger.getLogger(UsuarioDAO.class.getName());
@@ -74,24 +75,6 @@ public class UsuarioDAO implements IUsuario {
         }
     }
 
-    @Override
-    public Usuario consultarUsuario(UsuarioDTO usuario) throws persistenciaException {
-        String sentencia = "select idUsuario, contrasena, usuario, idCliente from usuarios where contrasena=?, usuario=?;";
-        try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia)) {
-            //Mandar el ID al comando
-            comandoSQL.setString(1, usuario.getContrasena());
-            comandoSQL.setString(2, usuario.getUsuario());
-            //Ejecutamos el comando 
-            ResultSet resultado = comandoSQL.executeQuery();
-            resultado.next();
-
-            Usuario usuarioConsultado = new Usuario(resultado.getInt("idUsuario"), resultado.getInt("idCliente"), resultado.getString("usuario"),resultado.getString("contrasena"));
-            return usuarioConsultado;
-
-        } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "No se encontro el usuario", e);
-            throw new persistenciaException("No se encontro el usuario", e);
-        }
-    }
+    
 
 }

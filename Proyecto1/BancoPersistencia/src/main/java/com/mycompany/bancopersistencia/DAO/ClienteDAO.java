@@ -32,7 +32,7 @@ public class ClienteDAO implements ICliente {
     }
 
     @Override
-    public Cliente agregarCliente(ClienteDTO cliente) throws persistenciaException {
+    public void agregarCliente(ClienteDTO cliente) throws persistenciaException {
         String sentenciaSQL = "insert into clientes(nombre,apellidoPaterno,apellidoMaterno,fechaNacimiento,numeroCasa,calle,colonia,edad,usuario,contrasena) values (?,?,?,?,?,?,?,?,?,?)";
 
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
@@ -44,15 +44,11 @@ public class ClienteDAO implements ICliente {
             comandoSQL.setString(6, cliente.getCalle());
             comandoSQL.setString(7, cliente.getColonia());
             comandoSQL.setInt(8, cliente.getEdad());
+            comandoSQL.setString(9, cliente.getUsuario());
+            comandoSQL.setString(10, cliente.getContrasena());
 
             int resultado = comandoSQL.executeUpdate();
             LOG.log(Level.INFO, "se han agregado {0}", resultado);
-            ResultSet res = comandoSQL.getGeneratedKeys();
-            res.next();
-            Cliente clienteGuardado = new Cliente(res.getInt(5), res.getInt(8), cliente.getNombre(), cliente.getApellidoPaterno(), cliente.getApellidoMaterno(), 
-                    cliente.getFechaNacimiento(), cliente.getCalle(), cliente.getColonia(),cliente.getUsuario(),cliente.getContrasena());
-            return clienteGuardado;
-
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "No se pudo agregar el cliente", e);
             throw new persistenciaException("No se pudo agregar el cliente");
@@ -135,7 +131,27 @@ public class ClienteDAO implements ICliente {
             throw new persistenciaException("No se pudo encontrar el cliente", e);
         }
     }
-public Cliente dominio(Cliente cliente){
-return cliente;
-}
+    
+    @Override
+    public Cliente consultarCliente(ClienteDTO cliente) throws persistenciaException {
+        String sentencia = "select * from clientes where contrasena=? and usuario=?;";
+        try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia)) {
+            //Mandar el ID al comando
+            comandoSQL.setString(1, cliente.getContrasena());
+            comandoSQL.setString(2, cliente.getUsuario());
+            //Ejecutamos el comando 
+            ResultSet resultado = comandoSQL.executeQuery();
+            resultado.next();
+
+            Cliente clienteRegresar= new Cliente(resultado.getInt("idCliente"), resultado.getInt("numeroCasa"), 
+                    resultado.getInt("edad"), resultado.getString("nombre"), resultado.getString("apellidoPaterno"), 
+                    resultado.getString("apellidoMaterno"), resultado.getString("fechaNacimiento"), resultado.getString("calle"),
+                    resultado.getString("colonia"), resultado.getString("usuario"), resultado.getString("contrasena"));
+            return clienteRegresar;
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se encontro el usuario", e);
+            throw new persistenciaException("No se encontro el usuario", e);
+        }
+    }
+    
 }
