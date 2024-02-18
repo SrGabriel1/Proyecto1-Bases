@@ -12,6 +12,7 @@ import com.mycompany.bancopersistencia.DAO.CuentaDAO;
 import com.mycompany.bancopersistencia.DAO.UsuarioDAO;
 import com.mycompany.bancopersistencia.DTOS.ClienteDTO;
 import com.mycompany.bancopersistencia.DTOS.CuentaDTO;
+import com.mycompany.bancopersistencia.DTOS.TransferenciaDTO;
 import com.mycompany.bancopersistencia.DTOS.UsuarioDTO;
 import com.mycompany.bancopersistencia.conexion.ConexionBD;
 import com.mycompany.bancopersistencia.conexion.IConexionBD;
@@ -79,4 +80,10 @@ public class Control {
         }
         return cuentaDAO.crearCuenta(numeroAleatorio.toString(), cliente.getIdCliente());
     }
+    public Cuenta consultarCuentaPorNumeroCuenta(String numeroCuenta) throws persistenciaException{
+   return cuentaDAO.consultarCuentaPorNumeroCuenta(numeroCuenta);
+    }
+        public boolean transferencia(TransferenciaDTO transferencia){
+            return cuentaDAO.transferencia(transferencia);
+        }
 }

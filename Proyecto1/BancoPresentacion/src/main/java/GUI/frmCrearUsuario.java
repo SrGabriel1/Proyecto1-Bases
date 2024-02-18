@@ -5,7 +5,6 @@
 package GUI;
 
 import com.mycompany.bancodominio.Cliente;
-import com.mycompany.bancodominio.Usuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -94,6 +93,11 @@ public class frmCrearUsuario extends javax.swing.JFrame {
         textNombre.setForeground(new java.awt.Color(102, 102, 102));
         textNombre.setToolTipText("");
         textNombre.setBorder(null);
+        textNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textNombreActionPerformed(evt);
+            }
+        });
         getContentPane().add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 450, 50));
 
         textFechaNacimiento.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -134,6 +138,7 @@ public class frmCrearUsuario extends javax.swing.JFrame {
         cliente.setNombre(textNombre.getText());
         cliente.setApellidoPaterno(textApellidoPaterno.getText());
         cliente.setApellidoMaterno(textApellidoMaterno.getText());
+        textFechaNacimiento.setEnabled(false);
         cliente.setFechaNacimiento(textFechaNacimiento.getText());
         frmCalendario frmCalendario = new frmCalendario(cliente);
         frmCalendario.setVisible(true);
@@ -164,6 +169,10 @@ public class frmCrearUsuario extends javax.swing.JFrame {
     private void textFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFechaNacimientoActionPerformed
         
     }//GEN-LAST:event_textFechaNacimientoActionPerformed
+
+    private void textNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textNombreActionPerformed
 
     /**
      * @param args the command line arguments

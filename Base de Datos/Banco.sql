@@ -52,6 +52,7 @@ idTransferencia int primary key auto_increment NOT NULL,
 idTransaccion int,
 idCuentaDestino int,
 idCuentaRemitente int,
+concepto varchar(30),
 foreign key(idCuentaDestino) references cuentas(idCuenta),
 foreign key(idTransaccion) references transacciones(idTransaccion),
 foreign key(idCuentaRemitente) references cuentas(idCuenta)

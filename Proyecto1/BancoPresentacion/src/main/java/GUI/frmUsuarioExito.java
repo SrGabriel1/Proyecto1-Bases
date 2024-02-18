@@ -6,13 +6,13 @@ package GUI;
  */
 
 import GUI.*;
+import com.mycompany.bancopersistencia.DTOS.TransferenciaDTO;
 
 /**
  *
  * @author USER
  */
 public class frmUsuarioExito extends javax.swing.JFrame {
-
     /**
      * Creates new form frmInicioSesion
      */

@@ -2,21 +2,43 @@
 
 -- transaccion para  realizar una transferencia
 delimiter //
-create procedure realizar_transferencia(in monto int,in cuenta_origen int,in cuenta_destino int)
+create procedure realizar_transferencia(in monto int,in cuenta_origen varchar(6),in cuenta_destino varchar(6),in concepto varchar(30))
 begin
-    start transaction;
-    insert into transferencias (idCuentaDestino, idCuentaRemitente) values (cuenta_destino, cuenta_origen);
+declare id_cuenta_origen int;
+declare id_cuenta_destino int;
+declare id_transaccion int;
 
-    -- Actualizar el saldo de la cuenta de destino
-update cuentas
-set saldo = saldo + monto
-where idCuenta = cuenta_destino;
+start transaction;
 
 -- Actualizar el saldo de la cuenta remitente
 update cuentas
 set saldo = saldo - monto
-where idCuenta = cuenta_origen;
+where numeroCuenta = cuenta_origen;
 
+-- Actualizar el saldo de la cuenta de destino
+update cuentas
+set saldo = saldo + monto
+where numeroCuenta = cuenta_destino;
+
+-- Obtener los IDs de las cuentas
+select idCuenta into id_cuenta_origen
+from cuentas
+where numeroCuenta = cuenta_origen;
+
+select idCuenta into id_cuenta_destino
+from cuentas
+where numeroCuenta = cuenta_destino;
+
+-- Insertar una nueva transacción
+insert into transacciones (nombreCliente, monto, fechaHora)
+values (concat("Transferencia - Concepto: ", concepto), monto, now());
+
+-- Obtener el ID de la transacción creada
+select last_insert_id() into id_transaccion;
+
+-- Insertar en la tabla de transferencias
+insert into transferencias (idTransaccion, idCuentaDestino, idCuentaRemitente, concepto)
+values (id_transaccion, id_cuenta_destino, id_cuenta_origen, concepto);
 commit;
 end //
 delimiter ;
@@ -67,7 +89,8 @@ in calle varchar(40),
 in colonia varchar(40),
 in edad int,
 in usuario varchar(30),
-in contrasena  varchar(30) 
+in contrasena  varchar(30) ,
+in numeroCuenta varchar(6)
 )
 begin
 start transaction;
@@ -79,8 +102,8 @@ values (nombre, apellidoPaterno, apellidoMaterno,fechaNacimiento, numeroCasa, ca
 set @id = last_insert_id();
 
 -- Crear automáticamente una nueva cuenta para el cliente
-insert into cuentas (idCliente, saldo, estado)
-values (@id, 0, "Activa");
+insert into cuentas (idCliente, numeroCuenta,fechaApertura,saldo, estado)
+values (@id,numeroCuenta,now(), 0, "Activa");
 commit;
 end //
 delimiter ;

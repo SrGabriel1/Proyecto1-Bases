@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Random;
+
 
 /**
  *
@@ -26,6 +28,8 @@ public class ClienteDAO implements ICliente {
 
     IConexionBD conexionBD;
     private static final Logger LOG = Logger.getLogger(ClienteDAO.class.getName());
+    Random random = new Random();
+    StringBuilder numeroAleatorio;
 
     public ClienteDAO(IConexionBD conexionBD) {
         this.conexionBD = conexionBD;
@@ -33,7 +37,7 @@ public class ClienteDAO implements ICliente {
 
     @Override
     public void agregarCliente(ClienteDTO cliente) throws persistenciaException {
-        String sentenciaSQL = "insert into clientes(nombre,apellidoPaterno,apellidoMaterno,fechaNacimiento,numeroCasa,calle,colonia,edad,usuario,contrasena) values (?,?,?,?,?,?,?,?,?,?)";
+        String sentenciaSQL = "call  crear_cliente_con_cuenta(?,?,?,?,?,?,?,?,?,?,?)";
 
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
             comandoSQL.setString(1, cliente.getNombre());
@@ -46,6 +50,13 @@ public class ClienteDAO implements ICliente {
             comandoSQL.setInt(8, cliente.getEdad());
             comandoSQL.setString(9, cliente.getUsuario());
             comandoSQL.setString(10, cliente.getContrasena());
+            numeroAleatorio = new StringBuilder();
+            for (int i = 0; i < 6; i++) {
+                int digito = random.nextInt(10); // Generar un dígito aleatorio (0-9)
+                numeroAleatorio.append(digito); // Agregar el dígito al número aleatorio
+            }
+            
+            comandoSQL.setString(11,numeroAleatorio.toString());
 
             int resultado = comandoSQL.executeUpdate();
             LOG.log(Level.INFO, "se han agregado {0}", resultado);

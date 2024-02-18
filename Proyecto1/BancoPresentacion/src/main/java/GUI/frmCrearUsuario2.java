@@ -5,10 +5,8 @@
 package GUI;
 
 import com.mycompany.bancodominio.Cliente;
-import com.mycompany.bancodominio.Usuario;
 import com.mycompany.banconegocio.Controlador.Control;
-import com.mycompany.bancopersistencia.DAO.ClienteDAO;
-import com.mycompany.bancopersistencia.excepciones.persistenciaException;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -121,6 +119,11 @@ public class frmCrearUsuario2 extends javax.swing.JFrame {
 
         fieldContra.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         fieldContra.setBorder(null);
+        fieldContra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldContraActionPerformed(evt);
+            }
+        });
         getContentPane().add(fieldContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 450, 450, 40));
 
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Crear Usuario 2.png"))); // NOI18N
@@ -169,6 +172,10 @@ public class frmCrearUsuario2 extends javax.swing.JFrame {
     private void textColoniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textColoniaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textColoniaActionPerformed
+
+    private void fieldContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldContraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldContraActionPerformed
 
     /**
      * @param args the command line arguments

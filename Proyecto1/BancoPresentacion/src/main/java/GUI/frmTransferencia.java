@@ -5,6 +5,13 @@
 package GUI;
 
 import com.mycompany.bancodominio.Cliente;
+import com.mycompany.bancodominio.Cuenta;
+import com.mycompany.banconegocio.Controlador.Control;
+import com.mycompany.bancopersistencia.DTOS.TransferenciaDTO;
+import com.mycompany.bancopersistencia.excepciones.persistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,6 +19,7 @@ import com.mycompany.bancodominio.Cliente;
  */
 public class frmTransferencia extends javax.swing.JFrame {
 
+    Control controlador = new Control();
     Cliente cliente;
 
     /**
@@ -24,6 +32,11 @@ public class frmTransferencia extends javax.swing.JFrame {
     public frmTransferencia(Cliente cliente) {
         initComponents();
         this.cliente = cliente;
+        textCuentaDestino.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textCuentaOrigen.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textConcepto.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textMontoEnviar.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textSaldoCuenta.setBackground(new java.awt.Color(0, 0, 0, 1));
     }
 
     /**
@@ -35,31 +48,142 @@ public class frmTransferencia extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        botonPerfil = new javax.swing.JButton();
+        textCuentaOrigen = new javax.swing.JTextField();
+        textConcepto = new javax.swing.JTextField();
+        textCuentaDestino = new javax.swing.JTextField();
+        textMontoEnviar = new javax.swing.JTextField();
+        textSaldoCuenta = new javax.swing.JTextField();
+        botonRegresar = new javax.swing.JButton();
+        botonTranferencia = new javax.swing.JButton();
+        labelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1080, 773));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("jLabel1");
+        botonPerfil.setContentAreaFilled(false);
+        botonPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonPerfilActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 20, 120, 120));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(163, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(194, Short.MAX_VALUE))
-        );
+        textCuentaOrigen.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        textCuentaOrigen.setForeground(new java.awt.Color(102, 102, 102));
+        textCuentaOrigen.setToolTipText("");
+        textCuentaOrigen.setBorder(null);
+        textCuentaOrigen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textCuentaOrigenActionPerformed(evt);
+            }
+        });
+        getContentPane().add(textCuentaOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 450, 50));
+
+        textConcepto.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        textConcepto.setForeground(new java.awt.Color(102, 102, 102));
+        textConcepto.setToolTipText("");
+        textConcepto.setBorder(null);
+        getContentPane().add(textConcepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 550, 450, 50));
+
+        textCuentaDestino.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        textCuentaDestino.setForeground(new java.awt.Color(102, 102, 102));
+        textCuentaDestino.setToolTipText("");
+        textCuentaDestino.setBorder(null);
+        getContentPane().add(textCuentaDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, 450, 50));
+
+        textMontoEnviar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        textMontoEnviar.setForeground(new java.awt.Color(102, 102, 102));
+        textMontoEnviar.setToolTipText("");
+        textMontoEnviar.setBorder(null);
+        getContentPane().add(textMontoEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 450, 450, 50));
+
+        textSaldoCuenta.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        textSaldoCuenta.setForeground(new java.awt.Color(102, 102, 102));
+        textSaldoCuenta.setToolTipText("");
+        textSaldoCuenta.setBorder(null);
+        textSaldoCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textSaldoCuentaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(textSaldoCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 220, 450, 50));
+
+        botonRegresar.setContentAreaFilled(false);
+        botonRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 690, 200, 50));
+
+        botonTranferencia.setContentAreaFilled(false);
+        botonTranferencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonTranferenciaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonTranferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 660, 420, 70));
+
+        labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Transferir Dinero.png"))); // NOI18N
+        getContentPane().add(labelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, -1, 770));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPerfilActionPerformed
+        frmPerfil frmPerfil = new frmPerfil(cliente);
+        frmPerfil.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_botonPerfilActionPerformed
+
+    private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
+
+        frmMenuUsuario frmMenuUsuario = new frmMenuUsuario();
+        frmMenuUsuario.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_botonRegresarActionPerformed
+    private void botonTranferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTranferenciaActionPerformed
+        try {
+            TransferenciaDTO transferencia = new TransferenciaDTO();
+            transferencia.setMonto( Integer.parseInt(textMontoEnviar.getText()));
+            transferencia.setCuentaOrigen(textCuentaOrigen.getText());
+            transferencia.setCuentaDestino(textCuentaDestino.getText());
+            transferencia.setConcepto(textConcepto.getText());
+
+            boolean validacion = controlador.transferencia(transferencia);
+
+            if (validacion) {
+                frmTransferenciaExito frmTransferenciaExito = new frmTransferenciaExito(transferencia);
+                frmTransferenciaExito.setVisible(true);
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se logró hacer la transferencia", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botonTranferenciaActionPerformed
+
+    private void textCuentaOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCuentaOrigenActionPerformed
+        try {
+        Cuenta cuenta = controlador.consultarCuentaPorNumeroCuenta(textCuentaOrigen.getText());
+        if (cuenta == null) {
+            JOptionPane.showMessageDialog(null, "Es un número de cuenta que no existe", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String saldo = Integer.toString(cuenta.getSaldo());
+            textSaldoCuenta.setText(saldo);
+            textSaldoCuenta.setEditable(false);
+        }
+    } catch (persistenciaException ex) {
+        Logger.getLogger(frmTransferencia.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }//GEN-LAST:event_textCuentaOrigenActionPerformed
+
+    private void textSaldoCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textSaldoCuentaActionPerformed
+
+    }//GEN-LAST:event_textSaldoCuentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -97,6 +221,14 @@ public class frmTransferencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton botonPerfil;
+    private javax.swing.JButton botonRegresar;
+    private javax.swing.JButton botonTranferencia;
+    private javax.swing.JLabel labelFondo;
+    private javax.swing.JTextField textConcepto;
+    private javax.swing.JTextField textCuentaDestino;
+    private javax.swing.JTextField textCuentaOrigen;
+    private javax.swing.JTextField textMontoEnviar;
+    private javax.swing.JTextField textSaldoCuenta;
     // End of variables declaration//GEN-END:variables
 }

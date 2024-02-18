@@ -41,10 +41,9 @@ declare saldo int;
 declare monto int;
 
 -- Se obtiene  el saldo  de la cuenta de donde se quiere transferir
-select saldo into saldo from cuentas where idcuenta = new.idCuentaRemitente;
 -- Se obtiene el monto que se quiere transferir desde transaccion
 select monto into monto from transacciones where idTransaccion=new.idTransaccion;
-if monto > saldo then
+if monto > 10000 then
 set new.idCuentaDestino = null;
 end if;
 end //
