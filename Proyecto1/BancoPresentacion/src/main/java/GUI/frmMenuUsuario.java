@@ -39,7 +39,8 @@ public class frmMenuUsuario extends javax.swing.JFrame {
 
         botonPerfil = new javax.swing.JButton();
         labelBienvenida = new javax.swing.JLabel();
-        labelFondo = new javax.swing.JLabel();
+        botonTransferir = new javax.swing.JButton();
+        labelFondo1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(1084, 773));
@@ -54,18 +55,26 @@ public class frmMenuUsuario extends javax.swing.JFrame {
                 botonPerfilActionPerformed(evt);
             }
         });
-        getContentPane().add(botonPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 10, 110, 100));
+        getContentPane().add(botonPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 0, 110, 110));
 
         labelBienvenida.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
         labelBienvenida.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(labelBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 560, 80));
 
-        labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menú de Usuario.png"))); // NOI18N
-        labelFondo.setText("jLabel1");
-        labelFondo.setMaximumSize(new java.awt.Dimension(1080, 773));
-        labelFondo.setMinimumSize(new java.awt.Dimension(1080, 773));
-        labelFondo.setPreferredSize(new java.awt.Dimension(1080, 773));
-        getContentPane().add(labelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 750));
+        botonTransferir.setContentAreaFilled(false);
+        botonTransferir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonTransferirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonTransferir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 150, 130));
+
+        labelFondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menú de Usuario.png"))); // NOI18N
+        labelFondo1.setText("jLabel1");
+        labelFondo1.setMaximumSize(new java.awt.Dimension(1080, 773));
+        labelFondo1.setMinimumSize(new java.awt.Dimension(1080, 773));
+        labelFondo1.setPreferredSize(new java.awt.Dimension(1080, 773));
+        getContentPane().add(labelFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 750));
 
         pack();
         setLocationRelativeTo(null);
@@ -76,6 +85,11 @@ public class frmMenuUsuario extends javax.swing.JFrame {
         frmPerfil.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonPerfilActionPerformed
+
+    private void botonTransferirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTransferirActionPerformed
+       frmTransferencia frmtransferencial= new frmTransferencia(cliente);
+        frmtransferencial.setVisible(true);
+        this.setVisible(false);    }//GEN-LAST:event_botonTransferirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,7 +131,8 @@ public class frmMenuUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonPerfil;
+    private javax.swing.JButton botonTransferir;
     private javax.swing.JLabel labelBienvenida;
-    private javax.swing.JLabel labelFondo;
+    private javax.swing.JLabel labelFondo1;
     // End of variables declaration//GEN-END:variables
 }

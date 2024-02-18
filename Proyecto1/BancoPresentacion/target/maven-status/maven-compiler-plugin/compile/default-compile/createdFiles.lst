@@ -20,7 +20,9 @@ GUI\frmCalendario$4.class
 GUI\frmInicioSesion$4.class
 GUI\frmMenuUsuario$1.class
 GUI\frmMenuUsuario.class
+GUI\frmTransferencia.class
 GUI\frmInicioSesion$1.class
+GUI\frmTransferencia$1.class
 GUI\frmInicioSesion$3.class
 GUI\frmCrearUsuario2$4.class
 GUI\frmCrearCuenta$1.class
@@ -38,3 +40,4 @@ GUI\frmPerfil$1.class
 GUI\frmCrearUsuario2.class
 GUI\frmCalendario$2.class
 GUI\frmCrearCuentaExito$2.class
+GUI\frmMenuUsuario$3.class

@@ -30,7 +30,7 @@ public class Control {
     public UsuarioDAO usuarioDAO;
     String cadenaConexion = "jdbc:mysql://localhost:3306/banco";
     String user = "root";
-    String contra = "1233";
+    String contra = "16426Mel";
     IConexionBD conexionBD = new ConexionBD(cadenaConexion, user, contra);
     Random random = new Random();
     StringBuilder numeroAleatorio;
@@ -60,9 +60,9 @@ public class Control {
         JOptionPane.showMessageDialog(null, "hola");
         boolean bandera = true;
         while (bandera) {
-            // Generar un número aleatorio de 16 dígitos como una cadena
+            // Generar un número aleatorio de 6 dígitos como una cadena
             numeroAleatorio = new StringBuilder();
-            for (int i = 0; i < 16; i++) {
+            for (int i = 0; i < 6; i++) {
                 int digito = random.nextInt(10); // Generar un dígito aleatorio (0-9)
                 numeroAleatorio.append(digito); // Agregar el dígito al número aleatorio
             }

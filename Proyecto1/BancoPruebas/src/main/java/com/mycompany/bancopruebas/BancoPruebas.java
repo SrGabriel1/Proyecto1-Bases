@@ -4,6 +4,8 @@
 
 package com.mycompany.bancopruebas;
 
+import GUI.frmInicioSesion;
+
 /**
  *
  * @author yohan
@@ -11,6 +13,7 @@ package com.mycompany.bancopruebas;
 public class BancoPruebas {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        frmInicioSesion a = new frmInicioSesion();
+      a.show();
     }
 }

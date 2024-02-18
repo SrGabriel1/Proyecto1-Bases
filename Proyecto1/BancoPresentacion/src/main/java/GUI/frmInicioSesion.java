@@ -5,10 +5,8 @@
 package GUI;
 
 import com.mycompany.bancodominio.Cliente;
-import com.mycompany.bancodominio.Usuario;
 import com.mycompany.banconegocio.Controlador.Control;
 import com.mycompany.bancopersistencia.DTOS.ClienteDTO;
-import com.mycompany.bancopersistencia.DTOS.UsuarioDTO;
 import com.mycompany.bancopersistencia.excepciones.persistenciaException;
 import javax.swing.JOptionPane;
 
@@ -47,9 +45,7 @@ public class frmInicioSesion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(1084, 773));
-        setMaximumSize(new java.awt.Dimension(1084, 773));
         setMinimumSize(new java.awt.Dimension(1084, 773));
-        setPreferredSize(new java.awt.Dimension(1084, 773));
         setResizable(false);
         setSize(new java.awt.Dimension(1084, 773));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -82,6 +78,11 @@ public class frmInicioSesion extends javax.swing.JFrame {
         textUsuario.setForeground(new java.awt.Color(0, 0, 0));
         textUsuario.setToolTipText("");
         textUsuario.setBorder(null);
+        textUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textUsuarioActionPerformed(evt);
+            }
+        });
         getContentPane().add(textUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 270, 450, 40));
 
         fieldContra.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -124,6 +125,10 @@ public class frmInicioSesion extends javax.swing.JFrame {
 
     }//GEN-LAST:event_botonIniciarSesionActionPerformed
 
+    private void textUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textUsuarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -152,10 +157,8 @@ public class frmInicioSesion extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmInicioSesion().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new frmInicioSesion().setVisible(true);
         });
     }
 

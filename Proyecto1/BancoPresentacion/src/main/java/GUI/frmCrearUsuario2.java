@@ -135,9 +135,7 @@ public class frmCrearUsuario2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        cliente.setCalle(textCalle.getText());
-        cliente.setColonia(textColonia.getText());
-        cliente.setNumeroCasa(Integer.parseInt(textNumCasa.getText()));
+       
         frmCrearUsuario frmUsuario = new frmCrearUsuario(cliente);
         frmUsuario.setVisible(true);
         this.setVisible(false);

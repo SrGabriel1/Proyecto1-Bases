@@ -4,6 +4,8 @@
 
 package com.mycompany.bancopresentacion;
 
+import GUI.frmInicioSesion;
+
 /**
  *
  * @author yohan
@@ -11,6 +13,6 @@ package com.mycompany.bancopresentacion;
 public class BancoPresentacion {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+              new frmInicioSesion().setVisible(true);
     }
 }
