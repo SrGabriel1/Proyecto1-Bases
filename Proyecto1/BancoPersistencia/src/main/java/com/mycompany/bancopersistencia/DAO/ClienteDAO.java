@@ -6,6 +6,7 @@ package com.mycompany.bancopersistencia.DAO;
 
 import com.mycompany.bancodominio.Cliente;
 import com.mycompany.bancopersistencia.DTOS.ClienteDTO;
+import com.mycompany.bancopersistencia.Encriptacion.encriptacion;
 import com.mycompany.bancopersistencia.conexion.IConexionBD;
 import com.mycompany.bancopersistencia.excepciones.persistenciaException;
 import java.sql.Connection;
@@ -27,6 +28,7 @@ import java.util.Random;
 public class ClienteDAO implements ICliente {
 
     IConexionBD conexionBD;
+    encriptacion encriptar = new encriptacion();
     private static final Logger LOG = Logger.getLogger(ClienteDAO.class.getName());
     Random random = new Random();
     StringBuilder numeroAleatorio;
@@ -49,7 +51,7 @@ public class ClienteDAO implements ICliente {
             comandoSQL.setString(7, cliente.getColonia());
             comandoSQL.setInt(8, cliente.getEdad());
             comandoSQL.setString(9, cliente.getUsuario());
-            comandoSQL.setString(10, cliente.getContrasena());
+            comandoSQL.setString(10, encriptar.encrypt(cliente.getContrasena()));
             numeroAleatorio = new StringBuilder();
             for (int i = 0; i < 6; i++) {
                 int digito = random.nextInt(10); // Generar un dígito aleatorio (0-9)
@@ -63,6 +65,8 @@ public class ClienteDAO implements ICliente {
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "No se pudo agregar el cliente", e);
             throw new persistenciaException("No se pudo agregar el cliente");
+        } catch (Exception ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -110,12 +114,12 @@ public class ClienteDAO implements ICliente {
                 String usuario = resultado.getString("usuario");
                 String contrasena = resultado.getString("contrasena");
 
-                Cliente clienteConsultado = new Cliente(id, numeroCasa, edad, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, calle, colonia,usuario,contrasena);
+                Cliente clienteConsultado = new Cliente(id, numeroCasa, edad, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, calle, colonia,usuario,encriptar.decrypt(contrasena));
                 listaClientes.add(clienteConsultado);
             }
             LOG.log(Level.INFO, "Se consultaron{0}", listaClientes.size());
             return listaClientes;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             LOG.log(Level.SEVERE, "No se encontraron clientes", e);
             throw new persistenciaException("No hay clientes", e);
         }
@@ -135,7 +139,7 @@ public class ClienteDAO implements ICliente {
 
             Cliente clienteConsultado = new Cliente(resultado.getInt(1), resultado.getInt("edad"), resultado.getString("nombre"),
                     resultado.getString("apellidoPaterno"), resultado.getString("apellidoMaterno"), resultado.getString("fechaNacimiento"),
-                    resultado.getString("calle"), resultado.getString("colonia"),resultado.getString("usuario"),resultado.getString("contrasena"));
+                    resultado.getString("calle"), resultado.getString("colonia"),resultado.getString("usuario"),encriptar.decrypt(resultado.getString("contrasena")));
             return clienteConsultado;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "No se pudo encontrar el cliente", e);
@@ -157,9 +161,9 @@ public class ClienteDAO implements ICliente {
             Cliente clienteRegresar= new Cliente(resultado.getInt("idCliente"), resultado.getInt("numeroCasa"), 
                     resultado.getInt("edad"), resultado.getString("nombre"), resultado.getString("apellidoPaterno"), 
                     resultado.getString("apellidoMaterno"), resultado.getString("fechaNacimiento"), resultado.getString("calle"),
-                    resultado.getString("colonia"), resultado.getString("usuario"), resultado.getString("contrasena"));
+                    resultado.getString("colonia"), resultado.getString("usuario"),encriptar.decrypt(resultado.getString("contrasena")));
             return clienteRegresar;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             LOG.log(Level.SEVERE, "No se encontro el usuario", e);
             throw new persistenciaException("No se encontro el usuario", e);
         }
