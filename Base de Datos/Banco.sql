@@ -24,7 +24,7 @@ foreign key(idCliente) references clientes(idCliente)
 
 create table cuentas(
 idCuenta int primary key auto_increment NOT NULL,
-numeroCuenta varchar(16),
+numeroCuenta varchar(6),
 fechaApertura date,
 saldo int,
 estado varchar(30),
@@ -71,7 +71,7 @@ foreign key(idTransaccion) references transacciones(idTransaccion)
 );
 create table cuentasEliminadas(
 idCuenta int primary key auto_increment NOT NULL,
-numeroCuenta int(16),
+numeroCuenta int(6),
 fechaApertura date,
 fechaCierre date,
 saldo int,

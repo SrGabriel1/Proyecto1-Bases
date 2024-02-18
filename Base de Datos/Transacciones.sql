@@ -1,4 +1,5 @@
 -- transacciones
+
 -- transaccion para  realizar una transferencia
 delimiter //
 create procedure realizar_transferencia(in monto int,in cuenta_origen int,in cuenta_destino int)
@@ -56,7 +57,6 @@ delimiter ;
 
 -- transaccion para que se cree en automatico una cuenta para el cliente al momento de  que se cree un nuevo cliente
 delimiter //
-
 create procedure crear_cliente_con_cuenta(
 in nombre varchar(30),
 in apellidoPaterno varchar(30),
@@ -67,7 +67,7 @@ in calle varchar(40),
 in colonia varchar(40),
 in edad int,
 in usuario varchar(30),
-in contrasena  varchar(30)
+in contrasena  varchar(30) 
 )
 begin
 start transaction;
