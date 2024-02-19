@@ -21,25 +21,35 @@ public class frmTransferenciaExito extends javax.swing.JFrame {
      */
     public frmTransferenciaExito() {
         initComponents();
-        textCuentaDestino.setBackground(new java.awt.Color(0, 0, 0, 1));
-        textCuentaOrigen.setBackground(new java.awt.Color(0, 0, 0, 1));
-        textMonto.setBackground(new java.awt.Color(0, 0, 0, 1));
+        String cuentaOrigen = transferencia.getCuentaOrigen();
+        labelCuentaOrigen.setText(cuentaOrigen);
+        String CuentaDestino = transferencia.getCuentaDestino();
+        labelCuentaDestino.setText(CuentaDestino);
+        String monto = Integer.toString(transferencia.getMonto());
+        labelMonto.setText(monto);
     }
 
     public frmTransferenciaExito(TransferenciaDTO transferencia) {
         initComponents();
         this.transferencia = transferencia;
-        textCuentaDestino.setBackground(new java.awt.Color(0, 0, 0, 1));
-        textCuentaOrigen.setBackground(new java.awt.Color(0, 0, 0, 1));
-        textMonto.setBackground(new java.awt.Color(0, 0, 0, 1));
+
+        String cuentaOrigen = transferencia.getCuentaOrigen();
+        labelCuentaOrigen.setText(cuentaOrigen);
+        String CuentaDestino = transferencia.getCuentaDestino();
+        labelCuentaDestino.setText(CuentaDestino);
+        String monto = Integer.toString(transferencia.getMonto());
+        labelMonto.setText(monto);
     }
 
     public frmTransferenciaExito(Cliente cliente) {
         initComponents();
         this.cliente = cliente;
-        textCuentaDestino.setBackground(new java.awt.Color(0, 0, 0, 1));
-        textCuentaOrigen.setBackground(new java.awt.Color(0, 0, 0, 1));
-        textMonto.setBackground(new java.awt.Color(0, 0, 0, 1));
+        String cuentaOrigen = transferencia.getCuentaOrigen();
+        labelCuentaOrigen.setText(cuentaOrigen);
+        String CuentaDestino = transferencia.getCuentaDestino();
+        labelCuentaDestino.setText(CuentaDestino);
+        String monto = Integer.toString(transferencia.getMonto());
+        labelMonto.setText(monto);
     }
 
     /**
@@ -54,11 +64,11 @@ public class frmTransferenciaExito extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        textCuentaOrigen = new javax.swing.JTextField();
-        textCuentaDestino = new javax.swing.JTextField();
-        textMonto = new javax.swing.JTextField();
         botonRegresar = new javax.swing.JButton();
         botonPerfil = new javax.swing.JButton();
+        labelCuentaDestino = new javax.swing.JLabel();
+        labelMonto = new javax.swing.JLabel();
+        labelCuentaOrigen = new javax.swing.JLabel();
         LabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -76,39 +86,6 @@ public class frmTransferenciaExito extends javax.swing.JFrame {
         jLabel4.setText("Monto:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 470, 270, 30));
 
-        textCuentaOrigen.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        textCuentaOrigen.setForeground(new java.awt.Color(102, 102, 102));
-        textCuentaOrigen.setToolTipText("");
-        textCuentaOrigen.setBorder(null);
-        textCuentaOrigen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textCuentaOrigenActionPerformed(evt);
-            }
-        });
-        getContentPane().add(textCuentaOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 440, 40));
-
-        textCuentaDestino.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        textCuentaDestino.setForeground(new java.awt.Color(102, 102, 102));
-        textCuentaDestino.setToolTipText("");
-        textCuentaDestino.setBorder(null);
-        textCuentaDestino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textCuentaDestinoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(textCuentaDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 370, 440, 40));
-
-        textMonto.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        textMonto.setForeground(new java.awt.Color(102, 102, 102));
-        textMonto.setToolTipText("");
-        textMonto.setBorder(null);
-        textMonto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textMontoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(textMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 500, 440, 40));
-
         botonRegresar.setContentAreaFilled(false);
         botonRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,30 +101,15 @@ public class frmTransferenciaExito extends javax.swing.JFrame {
             }
         });
         getContentPane().add(botonPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 20, 110, 110));
+        getContentPane().add(labelCuentaDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 370, 430, 40));
+        getContentPane().add(labelMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 500, 430, 40));
+        getContentPane().add(labelCuentaOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 430, 40));
 
         LabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Transferir - Exitoso.png"))); // NOI18N
         getContentPane().add(LabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 1120, 780));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void textCuentaOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCuentaOrigenActionPerformed
-        String cuentaOrigen = transferencia.getCuentaOrigen();
-        textCuentaOrigen.setText(cuentaOrigen);
-        textCuentaOrigen.setEditable(false);
-    }//GEN-LAST:event_textCuentaOrigenActionPerformed
-
-    private void textCuentaDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCuentaDestinoActionPerformed
-        String CuentaDestino = transferencia.getCuentaDestino();
-        textCuentaDestino.setText(CuentaDestino);
-        textCuentaDestino.setEditable(false);
-    }//GEN-LAST:event_textCuentaDestinoActionPerformed
-
-    private void textMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMontoActionPerformed
-        String monto = Integer.toString(transferencia.getMonto());
-        textMonto.setText(monto);
-        textMonto.setEditable(false);
-    }//GEN-LAST:event_textMontoActionPerformed
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
         frmMenuUsuario frmMenuUsuario = new frmMenuUsuario();
@@ -203,8 +165,8 @@ public class frmTransferenciaExito extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField textCuentaDestino;
-    private javax.swing.JTextField textCuentaOrigen;
-    private javax.swing.JTextField textMonto;
+    private javax.swing.JLabel labelCuentaDestino;
+    private javax.swing.JLabel labelCuentaOrigen;
+    private javax.swing.JLabel labelMonto;
     // End of variables declaration//GEN-END:variables
 }

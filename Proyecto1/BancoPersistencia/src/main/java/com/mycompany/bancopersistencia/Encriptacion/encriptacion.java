@@ -14,7 +14,7 @@ public class encriptacion {
     public encriptacion() {
     }
 
-  public String encrypt(String contraseña) {
+  public String encrypt(String contraseña)  {
         String Newstr = "";
         try {
             for (int i = 0; i < contraseña.length(); i++) {
