@@ -19,3 +19,10 @@ from cuentas c
 where c.numeroCuenta = numeroCuenta;
 end //
 delimiter ;
+-- procedimiento almacenado para registrar el historial
+delimiter //
+create procedure registrarHistorial(in operacion varchar(50), in idCuenta int, in monto int)
+begin
+    insert into historial (tipoOperacion, idCuenta, monto) values (operacion, id_cuenta, monto);
+end //
+delimiter ;

@@ -20,7 +20,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Random;
 
-
 /**
  *
  * @author LV322
@@ -29,6 +28,7 @@ public class ClienteDAO implements ICliente {
 
     IConexionBD conexionBD;
     encriptacion encriptar = new encriptacion();
+
     private static final Logger LOG = Logger.getLogger(ClienteDAO.class.getName());
     Random random = new Random();
     StringBuilder numeroAleatorio;
@@ -40,8 +40,8 @@ public class ClienteDAO implements ICliente {
     @Override
     public void agregarCliente(ClienteDTO cliente) throws persistenciaException {
         String sentenciaSQL = "call  crear_cliente_con_cuenta(?,?,?,?,?,?,?,?,?,?,?)";
-
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
+            String contra = encriptar.encrypt(cliente.getContrasena());
             comandoSQL.setString(1, cliente.getNombre());
             comandoSQL.setString(2, cliente.getApellidoPaterno());
             comandoSQL.setString(3, cliente.getApellidoMaterno());
@@ -51,14 +51,14 @@ public class ClienteDAO implements ICliente {
             comandoSQL.setString(7, cliente.getColonia());
             comandoSQL.setInt(8, cliente.getEdad());
             comandoSQL.setString(9, cliente.getUsuario());
-            comandoSQL.setString(10, encriptar.encrypt(cliente.getContrasena()));
+            comandoSQL.setString(10, contra);
             numeroAleatorio = new StringBuilder();
             for (int i = 0; i < 6; i++) {
                 int digito = random.nextInt(10); // Generar un dígito aleatorio (0-9)
                 numeroAleatorio.append(digito); // Agregar el dígito al número aleatorio
             }
-            
-            comandoSQL.setString(11,numeroAleatorio.toString());
+
+            comandoSQL.setString(11, numeroAleatorio.toString());
 
             int resultado = comandoSQL.executeUpdate();
             LOG.log(Level.INFO, "se han agregado {0}", resultado);
@@ -112,9 +112,9 @@ public class ClienteDAO implements ICliente {
                 String colonia = resultado.getString("colonia");
                 int edad = resultado.getInt("edad");
                 String usuario = resultado.getString("usuario");
-                String contrasena = resultado.getString("contrasena");
+                String contra = encriptar.decrypt(resultado.getString("contrasena"));
 
-                Cliente clienteConsultado = new Cliente(id, numeroCasa, edad, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, calle, colonia,usuario,encriptar.decrypt(contrasena));
+                Cliente clienteConsultado = new Cliente(id, numeroCasa, edad, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, calle, colonia, usuario, contra);
                 listaClientes.add(clienteConsultado);
             }
             LOG.log(Level.INFO, "Se consultaron{0}", listaClientes.size());
@@ -136,37 +136,39 @@ public class ClienteDAO implements ICliente {
             //Ejecutamos el comando 
             ResultSet resultado = comandoSQL.executeQuery();
             resultado.next();
+            String contra = encriptar.decrypt(resultado.getString("contrasena"));
 
             Cliente clienteConsultado = new Cliente(resultado.getInt(1), resultado.getInt("edad"), resultado.getString("nombre"),
                     resultado.getString("apellidoPaterno"), resultado.getString("apellidoMaterno"), resultado.getString("fechaNacimiento"),
-                    resultado.getString("calle"), resultado.getString("colonia"),resultado.getString("usuario"),encriptar.decrypt(resultado.getString("contrasena")));
+                    resultado.getString("calle"), resultado.getString("colonia"), resultado.getString("usuario"), contra);
             return clienteConsultado;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "No se pudo encontrar el cliente", e);
             throw new persistenciaException("No se pudo encontrar el cliente", e);
         }
     }
-    
+
     @Override
     public Cliente consultarCliente(ClienteDTO cliente) throws persistenciaException {
         String sentencia = "select * from clientes where contrasena=? and usuario=?;";
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia)) {
             //Mandar el ID al comando
-            comandoSQL.setString(1, cliente.getContrasena());
+            comandoSQL.setString(1, encriptar.encrypt(cliente.getContrasena()));
             comandoSQL.setString(2, cliente.getUsuario());
             //Ejecutamos el comando 
             ResultSet resultado = comandoSQL.executeQuery();
             resultado.next();
+            String contra = encriptar.decrypt(resultado.getString("contrasena"));
 
-            Cliente clienteRegresar= new Cliente(resultado.getInt("idCliente"), resultado.getInt("numeroCasa"), 
-                    resultado.getInt("edad"), resultado.getString("nombre"), resultado.getString("apellidoPaterno"), 
+            Cliente clienteRegresar = new Cliente(resultado.getInt("idCliente"), resultado.getInt("numeroCasa"),
+                    resultado.getInt("edad"), resultado.getString("nombre"), resultado.getString("apellidoPaterno"),
                     resultado.getString("apellidoMaterno"), resultado.getString("fechaNacimiento"), resultado.getString("calle"),
-                    resultado.getString("colonia"), resultado.getString("usuario"),encriptar.decrypt(resultado.getString("contrasena")));
+                    resultado.getString("colonia"), resultado.getString("usuario"), contra);
             return clienteRegresar;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "No se encontro el usuario", e);
             throw new persistenciaException("No se encontro el usuario", e);
         }
     }
-    
+
 }

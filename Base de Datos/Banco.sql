@@ -80,4 +80,12 @@ estado varchar(30),
 idCliente int,
 foreign key(idCliente) references clientes(idCliente)
 );
+CREATE TABLE historial (
+    idHistorial INT AUTO_INCREMENT PRIMARY KEY,
+    Operacion VARCHAR(50),
+    idCuenta INT,
+    monto INT,
+    fechaHora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    foreign key(idCuenta) references cuentas(idCuenta)
+);
 

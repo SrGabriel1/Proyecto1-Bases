@@ -14,6 +14,7 @@ import com.mycompany.bancopersistencia.DTOS.ClienteDTO;
 import com.mycompany.bancopersistencia.DTOS.CuentaDTO;
 import com.mycompany.bancopersistencia.DTOS.TransferenciaDTO;
 import com.mycompany.bancopersistencia.DTOS.UsuarioDTO;
+import com.mycompany.bancopersistencia.Encriptacion.encriptacion;
 import com.mycompany.bancopersistencia.conexion.ConexionBD;
 import com.mycompany.bancopersistencia.conexion.IConexionBD;
 import com.mycompany.bancopersistencia.excepciones.persistenciaException;
@@ -42,7 +43,9 @@ public class Control {
     }
 
     public void agregarCliente(Cliente cliente) throws persistenciaException, Throwable {
+       
         for (int i = 0; i < clienteDAO.consultarClientes().size(); i++) {
+       
             if (clienteDAO.consultarClientes().get(i).getUsuario().equalsIgnoreCase(cliente.getUsuario())) {
                 JOptionPane.showMessageDialog(null, "El usuario ya existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
                 throw new persistenciaException("El usuario ya existe");
