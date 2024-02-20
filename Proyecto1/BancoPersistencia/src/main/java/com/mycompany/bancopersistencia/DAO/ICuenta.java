@@ -20,5 +20,7 @@ public interface ICuenta {
     public boolean eliminarCuenta(int id) throws persistenciaException;
     
     public List<Cuenta> mostrarCuentas() throws persistenciaException;
+    
+    public List<Cuenta> mostrarCuentasDeCliente(int idCliente) throws persistenciaException;
 
 }
