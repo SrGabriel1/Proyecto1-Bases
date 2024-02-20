@@ -26,3 +26,12 @@ begin
     insert into historial (tipoOperacion, idCuenta, monto) values (operacion, id_cuenta, monto);
 end //
 delimiter ;
+-- procedimiento almacenado para hacer un deposito
+delimiter //
+create procedure deposito( in idcuenta int, in monto int,in oncepto varchar(50)
+)
+begin
+update cuentas set saldo = saldo + monto where idcuenta = idcuenta;
+insert into historial (operacion, idcuenta, monto) values (concepto, idcuenta, monto);
+end//
+delimiter ;

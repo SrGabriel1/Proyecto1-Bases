@@ -7,6 +7,7 @@ package com.mycompany.bancodominio;
 import java.util.Objects;
 
 /**
+ * Clase del cliente
  *
  * @author yohan
  */
@@ -14,10 +15,10 @@ public class Cliente {
 
     int idCliente, numeroCasa, edad;
     String nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, calle, colonia;
-    String usuario,contrasena;
+    String usuario, contrasena;
 
     /**
-     * Clase del cliente
+     *Constructor Vacio
      */
     public Cliente() {
     }
@@ -38,7 +39,8 @@ public class Cliente {
      * @param colonia El nombre de la colonia de donde vive el cliente para
      * relacionarlo para su direccion
      * @param usuario El usuario que usara el cliente para abrir su aplicacion
-     * @param contrasena La contraseña  que usara el cliente para abrir su aplicacion
+     * @param contrasena La contraseña que usara el cliente para abrir su
+     * aplicacion
      */
     public Cliente(int idCliente, int numeroCasa, int edad, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, String calle, String colonia, String usuario, String contrasena) {
         this.idCliente = idCliente;
@@ -55,6 +57,7 @@ public class Cliente {
     }
 
     /**
+     * Constructor con todos los valores excepto el id del cliente
      *
      * @param numeroCasa El numero de casa que tiene el cliente para
      * relacionarlo para su direccion
@@ -67,8 +70,9 @@ public class Cliente {
      * relacionarlo para su direccion
      * @param colonia El nombre de la colonia de donde vive el cliente para
      * relacionarlo para su direccion
-      * @param usuario El usuario que usara el cliente para abrir su aplicacion
-     * @param contrasena La contraseña  que usara el cliente para abrir su aplicacion
+     * @param usuario El usuario que usara el cliente para abrir su aplicacion
+     * @param contrasena La contraseña que usara el cliente para abrir su
+     * aplicacion
      */
     public Cliente(int numeroCasa, int edad, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, String calle, String colonia, String usuario, String contrasena) {
         this.numeroCasa = numeroCasa;
@@ -82,7 +86,6 @@ public class Cliente {
         this.usuario = usuario;
         this.contrasena = contrasena;
     }
-
 
     /**
      * Metodo para agregar un domicilio del cliente
@@ -263,18 +266,38 @@ public class Cliente {
         this.colonia = colonia;
     }
 
+    /**
+     * Metodo que regresa el nombre del usuario
+     *
+     * @return El nombre del usuario
+     */
     public String getUsuario() {
         return usuario;
     }
 
+    /**
+     * Metodo que regresa el nombre del usuario
+     *
+     * @param usuario El nombre del usuario
+     */
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
+    /**
+     * Metodo que regresa la contraseña del usuario
+     *
+     * @return La contraseña del usuario
+     */
     public String getContrasena() {
         return contrasena;
     }
 
+    /**
+     * Metodo que guarda la contraseña del usuario
+     *
+     * @param contrasena La contraseña del usuario
+     */
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
@@ -284,7 +307,7 @@ public class Cliente {
      *
      * @return regresa el numero unico
      */
-    @Override  
+    @Override
     public int hashCode() {
         int hash = 5;
         hash = 67 * hash + this.idCliente;
@@ -307,7 +330,7 @@ public class Cliente {
      * @param obj es el tipo de objeto que se usara para comparar
      * @return regrsa falso si no es igual y verdadero si es igual
      */
-    @Override   
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

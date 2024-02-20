@@ -44,6 +44,7 @@ public class frmPerfil extends javax.swing.JFrame {
         botonCerrarSesión = new javax.swing.JButton();
         botonRegresar = new javax.swing.JButton();
         botonVerInformacion = new javax.swing.JButton();
+        botonActualizarDatos = new javax.swing.JButton();
         labelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -85,6 +86,14 @@ public class frmPerfil extends javax.swing.JFrame {
         });
         getContentPane().add(botonVerInformacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 120, 300, 60));
 
+        botonActualizarDatos.setContentAreaFilled(false);
+        botonActualizarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarDatosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonActualizarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 230, 300, 60));
+
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Perfil de Usuario.png"))); // NOI18N
         labelFondo.setText("jLabel1");
         labelFondo.setMaximumSize(new java.awt.Dimension(1080, 773));
@@ -125,49 +134,16 @@ public class frmPerfil extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonVerInformacionActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    private void botonActualizarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarDatosActionPerformed
+        frmActualizarDatos frmActualizarDatos = new frmActualizarDatos(cliente);
+        frmActualizarDatos.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_botonActualizarDatosActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmPerfil().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonActualizarDatos;
     private javax.swing.JButton botonCerrarSesión;
     private javax.swing.JButton botonCrearCuenta;
     private javax.swing.JButton botonRegresar;

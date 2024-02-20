@@ -80,3 +80,12 @@ begin
 call registrarHistorial("Retiro sin cuenta", NEW.cuenta, -NEW.monto);
 end //
 delimiter ;
+delimiter //
+-- trigger para  calcular la edad
+create trigger calcular_edad
+before insert on clientes
+for each row
+set new.edad = (year(curdate()) - year(new.fechaNacimiento)) - (right(curdate(), 5) < right(new.fechaNacimiento, 5));
+
+//
+delimiter ;

@@ -8,9 +8,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- *
- * @author lv1821
+ *Clase de interfaz para la conexion a la base de datos
+ * @author pablo
  */
 public interface IConexionBD {
+
+    /**
+     *Metodo para crear la conexion
+     * @return Regresa la coneccion
+     * @throws SQLException Es para saber en que falle
+     */
     public Connection crearConexion() throws SQLException;
 }
