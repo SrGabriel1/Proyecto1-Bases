@@ -4,6 +4,7 @@
  */
 package com.mycompany.banconegocio.Controlador;
 
+import com.mycompany.bancopersistencia.DTOS.RetiroDTO;
 import com.mycompany.bancodominio.Cliente;
 import com.mycompany.bancodominio.Cuenta;
 import com.mycompany.bancodominio.Usuario;
@@ -36,7 +37,7 @@ public class Control {
     public UsuarioDAO usuarioDAO;
     String cadenaConexion = "jdbc:mysql://localhost:3306/banco";
     String user = "root";
-    String contra = "1233";
+    String contra = "16426Mel";
     IConexionBD conexionBD = new ConexionBD(cadenaConexion, user, contra);
     Random random = new Random();
     StringBuilder numeroAleatorio;
