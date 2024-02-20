@@ -152,7 +152,7 @@ public class frmTransferencia extends javax.swing.JFrame {
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
 
-        frmMenuUsuario frmMenuUsuario = new frmMenuUsuario();
+        frmMenuUsuario frmMenuUsuario = new frmMenuUsuario(cliente);
         frmMenuUsuario.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonRegresarActionPerformed
@@ -167,7 +167,7 @@ public class frmTransferencia extends javax.swing.JFrame {
             boolean validacion = controlador.transferencia(transferencia);
 
             if (validacion) {
-                frmTransferenciaExito frmTransferenciaExito = new frmTransferenciaExito(transferencia);
+                frmTransferenciaExito frmTransferenciaExito = new frmTransferenciaExito(transferencia, cliente);
                 frmTransferenciaExito.setVisible(true);
                 this.setVisible(false);
             } else {

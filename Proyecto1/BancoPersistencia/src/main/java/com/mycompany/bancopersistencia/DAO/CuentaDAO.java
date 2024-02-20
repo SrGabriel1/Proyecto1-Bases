@@ -205,7 +205,7 @@ public class CuentaDAO implements ICuenta {
             comandoSQL.setString(2, transferencia.getCuentaOrigen());
             comandoSQL.setString(3, transferencia.getCuentaDestino());
             comandoSQL.setString(4, transferencia.getConcepto());
-            comandoSQL.execute();
+            comandoSQL.executeUpdate();
 
             LOG.log(Level.INFO, " se pudo hacer la transferencia");
 

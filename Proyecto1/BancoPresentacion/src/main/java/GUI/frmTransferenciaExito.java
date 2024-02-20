@@ -41,7 +41,7 @@ public class frmTransferenciaExito extends javax.swing.JFrame {
         labelMonto.setText(monto);
     }
 
-    public frmTransferenciaExito(Cliente cliente) {
+    public frmTransferenciaExito(TransferenciaDTO transferencia, Cliente cliente) {
         initComponents();
         this.cliente = cliente;
         String cuentaOrigen = transferencia.getCuentaOrigen();
@@ -113,7 +113,7 @@ public class frmTransferenciaExito extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        frmMenuUsuario frmMenuUsuario = new frmMenuUsuario();
+        frmMenuUsuario frmMenuUsuario = new frmMenuUsuario(cliente);
         frmMenuUsuario.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonRegresarActionPerformed
