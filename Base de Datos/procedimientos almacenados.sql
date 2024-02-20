@@ -23,7 +23,7 @@ delimiter ;
 delimiter //
 create procedure registrarHistorial(in operacion varchar(50), in idCuenta int, in monto int)
 begin
-    insert into historial (tipoOperacion, idCuenta, monto) values (operacion, id_cuenta, monto);
+    insert into historial (Operacion, idCuenta, monto) values (operacion, idCuenta, monto);
 end //
 delimiter ;
 -- procedimiento almacenado para hacer un deposito

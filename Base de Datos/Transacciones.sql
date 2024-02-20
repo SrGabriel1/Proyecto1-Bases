@@ -1,3 +1,4 @@
+@ -0,0 +1,126 @@
 -- transacciones
 
 -- transaccion para  realizar una transferencia
@@ -45,34 +46,51 @@ delimiter ;
 
 -- transaccion para los retiros sin cuenta
 delimiter //
-create procedure realizar_retiroSinCuenta(
+create procedure crear_retiroSinCuenta(
 in folio int (8),
 in cuenta varchar(30),
 in monto int,
-in fechaOperacion date,
-in fechaVencimiento date,
-in contraseña int (8),
-in estado varchar(30)
+in contraseña int (8)
 )
 begin
 start transaction;
 -- crear una transaccion
 insert into transacciones (nombreCliente, monto, fechaHora)
-values (concat("Retiro sin cuenta con Folio: ", folio), monto, now());
+values (concat("Retiro sin cuenta: ", folio), monto, now());
 
 -- Obtener el id de la transacción 
 set @idTransaccion = last_insert_id();
 
+-- Insertar el retiro sin cuenta con las variables que se declaran arriba
+insert into retirosSinCuentas (folio, cuenta, monto, fechaOperacion, fechaVencimiento,contraseña, estado, idTransaccion) 
+values (folio, cuenta, monto, now(), date_add(now(), INTERVAL 10 MINUTE),contraseña, "Sin Cobrar", @idTransaccion);
+commit;
+end //
+delimiter ;
+
+-- transaccion para los retiros sin cuenta
+delimiter //
+create procedure realizar_retiroSinCuenta(
+in folio int (8),
+in contraseña int (8)
+)
+begin
+start transaction;
+update retiroSinCuentas set estado="Cobrado" where contraseña=contraseña and folio=folio;
+-- Obtener el monto que contenga el folio 
+set @monto = (select monto from retiroSinCuentas where contraseña=contraseña and folio=folio);
+
+-- Obtener el ID de la cuenta que contenga el folio 
+set @idCuenta = (select cuenta from retiroSinCuentas where contraseña=contraseña and folio=folio);
+
 -- Obtener el ID del cliente que tiene la cuenta de donde se va retirar
-set @idCliente = (select idCliente from cuentas where numeroCuenta = cuenta);
+set @idCliente = (select idCliente from cuentas where numeroCuenta = @idCuenta);
 
 -- Actualizar el saldo del cliente restando el monto del retiro
 update cuentas
-set saldo = saldo - monto
+set saldo = saldo - @monto
 where idCliente = @idCliente;
--- Insertar el retiro sin cuenta con las variables que se declaran arriba
-insert into retirosSinCuentas (folio, cuenta, monto, fechaOperacion, fechaVencimiento,contraseña, estado, idTransaccion) 
-values (folio, cuenta, monto, fechaOperacion, fechaVencimiento,contraseña, estado, idTransaccion);
+
 commit;
 end //
 delimiter ;
