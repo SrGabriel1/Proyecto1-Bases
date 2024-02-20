@@ -1,0 +1,26 @@
+-classpath
+'C:/Users/yohan/.m2/repository/org/netbeans/external/AbsoluteLayout/RELEASE150/AbsoluteLayout-RELEASE150.jar;C:/Users/yohan/.m2/repository/com/mycompany/BancoDominio/1.0-SNAPSHOT/BancoDominio-1.0-SNAPSHOT.jar;C:/Users/yohan/.m2/repository/com/mycompany/BancoNegocio/1.0-SNAPSHOT/BancoNegocio-1.0-SNAPSHOT.jar;C:/Users/yohan/.m2/repository/com/mycompany/BancoPersistencia/1.0-SNAPSHOT/BancoPersistencia-1.0-SNAPSHOT.jar;C:/Users/yohan/.m2/repository/com/mysql/mysql-connector-j/8.2.0/mysql-connector-j-8.2.0.jar;C:/Users/yohan/.m2/repository/com/google/protobuf/protobuf-java/3.21.9/protobuf-java-3.21.9.jar;C:/Users/yohan/.m2/repository/com/toedter/jcalendar/1.4/jcalendar-1.4.jar'
+-encoding
+'UTF-8'
+-protected
+-source
+'15'
+-sourcepath
+'C:/Users/yohan/Documents/Proyecto1-Bases/Proyecto1/BancoPresentacion/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2024. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/yohan/Documents/Proyecto1-Bases/Proyecto1/BancoPresentacion/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'BancoPresentacion 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/15/docs/api' 'C:/Users/yohan/Documents/Proyecto1-Bases/Proyecto1/BancoPresentacion/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'BancoPresentacion 1.0-SNAPSHOT API'

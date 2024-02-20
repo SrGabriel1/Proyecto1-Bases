@@ -15,6 +15,17 @@ public class TransferenciaDTO {
     public TransferenciaDTO() {
     }
 
+<<<<<<< Updated upstream
+=======
+    /**
+     * Constructor con los datos para asignarlos a los atributos
+     *
+     * @param monto 
+     * @param concepto
+     * @param cuentaOrigen
+     * @param cuentaDestino
+     */
+>>>>>>> Stashed changes
     public TransferenciaDTO(int monto, String concepto, String cuentaOrigen, String cuentaDestino) {
         this.monto = monto;
         this.concepto = concepto;
