@@ -4,17 +4,33 @@
  */
 package GUI;
 
+import com.mycompany.bancodominio.Cliente;
+import com.mycompany.bancodominio.Cuenta;
+
 /**
  *
  * @author yohan
  */
 public class frmDepositarExitoso extends javax.swing.JFrame {
 
+    private Cliente cliente;
+
+
     /**
      * Creates new form frmDepositarExitoso
      */
     public frmDepositarExitoso() {
         initComponents();
+    }
+    
+    public frmDepositarExitoso(Cuenta cuenta, String monto, String concepto, Cliente cliente) {
+        initComponents();
+        this.cliente=cliente;
+        labelConcepto.setText(concepto);
+        labelCuenta.setText(cuenta.getNumeroCuenta());
+        labelMonto.setText(monto);
+        
+        
     }
 
     /**
@@ -26,27 +42,46 @@ public class frmDepositarExitoso extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        labelMonto = new javax.swing.JLabel();
+        labelConcepto = new javax.swing.JLabel();
+        labelCuenta = new javax.swing.JLabel();
+        botonRegresar = new javax.swing.JButton();
+        labelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Deposito Exitoso.png"))); // NOI18N
+        labelMonto.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        labelMonto.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(labelMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 260, 50));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1025, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        labelConcepto.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        labelConcepto.setForeground(new java.awt.Color(102, 102, 102));
+        getContentPane().add(labelConcepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 480, 380, 50));
+
+        labelCuenta.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        labelCuenta.setForeground(new java.awt.Color(102, 102, 102));
+        getContentPane().add(labelCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 330, 50));
+
+        botonRegresar.setContentAreaFilled(false);
+        botonRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 620, 600, 100));
+
+        labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Deposito Exitoso.png"))); // NOI18N
+        getContentPane().add(labelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1025, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
+        frmMenuUsuario frmMenuUsuario = new frmMenuUsuario(cliente);
+        frmMenuUsuario.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_botonRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -84,6 +119,10 @@ public class frmDepositarExitoso extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton botonRegresar;
+    private javax.swing.JLabel labelConcepto;
+    private javax.swing.JLabel labelCuenta;
+    private javax.swing.JLabel labelFondo;
+    private javax.swing.JLabel labelMonto;
     // End of variables declaration//GEN-END:variables
 }

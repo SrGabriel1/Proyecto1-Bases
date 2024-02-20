@@ -36,10 +36,13 @@ public class frmCrearUsuario2 extends javax.swing.JFrame {
     public frmCrearUsuario2(Cliente cliente) {
         initComponents();
         textCalle.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textCalle.setText(cliente.getCalle());
         textColonia.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textColonia.setText(cliente.getColonia());
         textNumCasa.setBackground(new java.awt.Color(0, 0, 0, 1));
         fieldContra.setBackground(new java.awt.Color(0, 0, 0, 1));
         textNombreUsuario.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textNombreUsuario.setText(cliente.getUsuario());
         fieldContraVerificar.setBackground(new java.awt.Color(0, 0, 0, 1));
         this.cliente = cliente;
     }
@@ -138,7 +141,9 @@ public class frmCrearUsuario2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-       
+        cliente.setCalle(textCalle.getText());
+        cliente.setColonia(textColonia.getText());
+        cliente.setUsuario(textNombreUsuario.getText());
         frmCrearUsuario frmUsuario = new frmCrearUsuario(cliente);
         frmUsuario.setVisible(true);
         this.setVisible(false);

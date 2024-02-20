@@ -42,6 +42,8 @@ public interface ICuenta {
      * @throws persistenciaException validacion por si hay un error
      */
     public List<Cuenta> mostrarCuentas() throws persistenciaException;
+    
+    public List<Cuenta> mostrarCuentasDeCliente(int idCliente) throws persistenciaException;
 
     /**
      *Metodo para actualizar el folio de la cuenta

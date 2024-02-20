@@ -12,6 +12,8 @@ import com.mycompany.bancodominio.Cliente;
  */
 public class frmDatosUsuario extends javax.swing.JFrame {
 
+    private Cliente cliente;
+
     public frmDatosUsuario() {
         initComponents();
     }
@@ -23,6 +25,7 @@ public class frmDatosUsuario extends javax.swing.JFrame {
      */
     public frmDatosUsuario(Cliente cliente) {
         initComponents();
+        this.cliente=cliente;
         labelNombre.setText(cliente.getNombre());
         labelApellidoP.setText(cliente.getApellidoPaterno());
         labelApellidoM.setText(cliente.getApellidoMaterno());
@@ -76,7 +79,7 @@ public class frmDatosUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        frmPerfil frmPerfil = new frmPerfil();
+        frmPerfil frmPerfil = new frmPerfil(cliente);
         frmPerfil.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonRegresarActionPerformed

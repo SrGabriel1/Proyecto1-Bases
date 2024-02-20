@@ -6,6 +6,7 @@ package com.mycompany.bancopersistencia.DAO;
 
 import com.mycompany.bancodominio.Cuenta;
 import com.mycompany.bancopersistencia.DTOS.CuentaDTO;
+import com.mycompany.bancopersistencia.DTOS.RetiroDTO;
 import com.mycompany.bancopersistencia.DTOS.TransferenciaDTO;
 import com.mycompany.bancopersistencia.conexion.IConexionBD;
 import com.mycompany.bancopersistencia.excepciones.persistenciaException;
@@ -83,6 +84,19 @@ public class CuentaDAO implements ICuenta {
             throw new persistenciaException("No se pudo eliminar la cuenta");
         }
     }
+    
+    public boolean depositarDinero(Cuenta cuenta, int monto) throws persistenciaException {
+        String sentencia = "update cuentas set saldo=? where idCuenta=?;";
+        try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia)) {
+            comandoSQL.setInt(1, cuenta.getSaldo()+monto);
+            comandoSQL.setInt(2, cuenta.getIdCuenta());
+            comandoSQL.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se pudo depositar dinero a la cuenta", e);
+            throw new persistenciaException("No se pudo depositar dinero a la cuenta");
+        }
+    }
 
     /**
      * Metodo para mostrar las cuentas guardadas
@@ -93,6 +107,31 @@ public class CuentaDAO implements ICuenta {
     @Override
     public List<Cuenta> mostrarCuentas() throws persistenciaException {
         String sentencia = "select * from cuentas;";
+        List<Cuenta> listaCuenta = new ArrayList<>();
+        try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia)) {
+            ResultSet resultado = comandoSQL.executeQuery();
+            while (resultado.next()) {
+                int id = resultado.getInt("idCuenta");
+                String numeroCuenta = resultado.getString("numeroCuenta");
+                String fechaApertura = resultado.getString("fechaApertura");
+                int saldo = resultado.getInt("saldo");
+                String estado = resultado.getString("estado");
+                int idcliente = resultado.getInt("idcliente");
+
+                Cuenta CuentaGuardada = new Cuenta(id, numeroCuenta, saldo, idcliente, fechaApertura, estado);
+                listaCuenta.add(CuentaGuardada);
+            }
+            LOG.log(Level.INFO, "Se consultaron{0}", listaCuenta.size());
+            return listaCuenta;
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se encontraron cuentas", e);
+            throw new persistenciaException("No hay cuentas", e);
+        }
+    }
+    
+    @Override
+    public List<Cuenta> mostrarCuentasDeCliente(int idCliente) throws persistenciaException {
+        String sentencia = "select * from cuentas where idCliente="+idCliente+";";
         List<Cuenta> listaCuenta = new ArrayList<>();
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia)) {
             ResultSet resultado = comandoSQL.executeQuery();
@@ -163,30 +202,40 @@ public class CuentaDAO implements ICuenta {
             return false;
         }
     }
+    
+    public boolean crearRetiroSinCuenta(RetiroDTO retiro) {
+        String sentenciaSQL = "call crear_retiroSinCuenta(?,?,?,?)";
+        try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareCall(sentenciaSQL)) {
+            comandoSQL.setInt(1, retiro.getFolio());
+            comandoSQL.setString(2, retiro.getCuenta());
+            comandoSQL.setInt(3, retiro.getMonto());
+            comandoSQL.setInt(4, retiro.getContraseña());
+            
+            comandoSQL.executeUpdate();
 
-    /**
-     * Metodo para actualizar el folio de la cuenta
-     *
-     * @param cuenta cuenta donde se quiere actualizar
-     * @return regresa un true si se actualizo y false al contrario
-     * @throws persistenciaException validacion por si hay un error
-     */
-    @Override
-    public boolean actualizarCuenta(Cuenta cuenta) throws persistenciaException {
-        String sentenciaSQL = "update cuentas set estado=? where numeroCuenta=?";
-        try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
-            comandoSQL.setString(1, cuenta.getEstado());
-            comandoSQL.setString(2, cuenta.getNumeroCuenta());
-            int resultado = comandoSQL.executeUpdate();
-
-            LOG.log(Level.INFO, "Se ha actualizado {0}", resultado);
+            LOG.log(Level.INFO, "Se creo el retiro con exito");
 
             return true;
-
         } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "No se pudo actualizar el cliente", e);
-            throw new persistenciaException("No se pudo actualizar el cliente");
+            LOG.log(Level.SEVERE, "No se pudo hacer la transferencia", e);
+            return false;
         }
     }
+    
+    public boolean realizarRetiroSinCuenta(int folio, int contra) {
+        String sentenciaSQL = "call realizar_retiroSinCuenta(?,?)";
+        try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareCall(sentenciaSQL)) {
+            comandoSQL.setInt(1, folio);
+            comandoSQL.setInt(2, contra);
+            
+            comandoSQL.executeUpdate();
 
+            LOG.log(Level.INFO, "Se realizo el retiro con exito");
+
+            return true;
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se pudo hacer la transferencia", e);
+            return false;
+        }
+    }
 }

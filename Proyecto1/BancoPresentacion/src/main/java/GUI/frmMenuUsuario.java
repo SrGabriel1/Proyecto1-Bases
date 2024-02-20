@@ -44,7 +44,9 @@ public class frmMenuUsuario extends javax.swing.JFrame {
         botonPerfil = new javax.swing.JButton();
         labelBienvenida = new javax.swing.JLabel();
         botonTransferir = new javax.swing.JButton();
-        botonEliminar = new javax.swing.JButton();
+        botonDepositar = new javax.swing.JButton();
+        botonHistorial = new javax.swing.JButton();
+        botonRetirar = new javax.swing.JButton();
         labelFondo1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,15 +76,32 @@ public class frmMenuUsuario extends javax.swing.JFrame {
         });
         getContentPane().add(botonTransferir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 150, 130));
 
-        botonEliminar.setContentAreaFilled(false);
-        botonEliminar.addActionListener(new java.awt.event.ActionListener() {
+        botonDepositar.setContentAreaFilled(false);
+        botonDepositar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonEliminarActionPerformed(evt);
+                botonDepositarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 650, 270, 50));
+        getContentPane().add(botonDepositar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 130, 150, 130));
 
-        labelFondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menú de Cuenta.png"))); // NOI18N
+        botonHistorial.setContentAreaFilled(false);
+        botonHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonHistorialActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 110, 110));
+
+        botonRetirar.setContentAreaFilled(false);
+        botonRetirar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRetirarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonRetirar, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 140, 110, 110));
+
+        labelFondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menú de Usuario.png"))); // NOI18N
+        labelFondo1.setText("jLabel1");
         labelFondo1.setMaximumSize(new java.awt.Dimension(1080, 773));
         labelFondo1.setMinimumSize(new java.awt.Dimension(1080, 773));
         labelFondo1.setPreferredSize(new java.awt.Dimension(1080, 773));
@@ -103,11 +122,21 @@ public class frmMenuUsuario extends javax.swing.JFrame {
         frmtransferencial.setVisible(true);
         this.setVisible(false);    }//GEN-LAST:event_botonTransferirActionPerformed
 
-    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-        frmEliminarCuenta frmEliminarCuenta = new frmEliminarCuenta(cliente);
-        frmEliminarCuenta.setVisible(true);
+    private void botonDepositarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDepositarActionPerformed
+        frmDepositar frmDepositar = new frmDepositar(cliente);
+        frmDepositar.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_botonEliminarActionPerformed
+    }//GEN-LAST:event_botonDepositarActionPerformed
+
+    private void botonHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHistorialActionPerformed
+        
+    }//GEN-LAST:event_botonHistorialActionPerformed
+
+    private void botonRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRetirarActionPerformed
+        frmRetirarMenu frmRetirarMenu = new frmRetirarMenu(cliente);
+        frmRetirarMenu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_botonRetirarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,8 +177,10 @@ public class frmMenuUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonEliminar;
+    private javax.swing.JButton botonDepositar;
+    private javax.swing.JButton botonHistorial;
     private javax.swing.JButton botonPerfil;
+    private javax.swing.JButton botonRetirar;
     private javax.swing.JButton botonTransferir;
     private javax.swing.JLabel labelBienvenida;
     private javax.swing.JLabel labelFondo1;
