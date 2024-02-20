@@ -11,20 +11,34 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Clase para hacer la conexion con la base de datos
  *
- * @author lv1821
+ * @author pablo
  */
 public class ConexionBD implements IConexionBD {
 
     final String cadenaConexion, usuario, contra;
     private static final Logger LOG = Logger.getLogger(ConexionBD.class.getName());
 
+    /**
+     * Constructo con los parametros para la conexion
+     *
+     * @param cadenaConexion Es el texto con la localizacion de la base de datos
+     * @param usuario El usuario con el que se inicia secion en el mysql
+     * @param contra La contraseña con el que se inicia secion en el mysql
+     */
     public ConexionBD(String cadenaConexion, String usuario, String contra) {
         this.cadenaConexion = cadenaConexion;
         this.usuario = usuario;
         this.contra = contra;
     }
 
+    /**
+     * Metodo para crear la conexion
+     *
+     * @return Regresa la coneccion
+     * @throws SQLException Es para saber en que falle
+     */
     @Override
     public Connection crearConexion() throws SQLException {
         Connection conexion = DriverManager.getConnection(cadenaConexion, usuario, contra);

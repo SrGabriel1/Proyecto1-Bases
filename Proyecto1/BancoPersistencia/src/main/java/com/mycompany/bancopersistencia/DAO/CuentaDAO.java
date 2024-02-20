@@ -4,7 +4,6 @@
  */
 package com.mycompany.bancopersistencia.DAO;
 
-import com.mycompany.bancodominio.Cliente;
 import com.mycompany.bancodominio.Cuenta;
 import com.mycompany.bancopersistencia.DTOS.CuentaDTO;
 import com.mycompany.bancopersistencia.DTOS.RetiroDTO;
@@ -22,7 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *Clase con los atributos de cuenta
  * @author yohan
  */
 public class CuentaDAO implements ICuenta {
@@ -30,10 +29,23 @@ public class CuentaDAO implements ICuenta {
     IConexionBD conexionBD;
     private static final Logger LOG = Logger.getLogger(CuentaDAO.class.getName());
 
+    /**
+     * Constructor para hacer la conexion con la base de datos
+     *
+     * @param conexionBD la conexion con la base de datos
+     */
     public CuentaDAO(IConexionBD conexionBD) {
         this.conexionBD = conexionBD;
     }
 
+    /**
+     * Metodo para crear nuevas cuentas
+     *
+     * @param numCuenta el numero de cuenta que se va registrar
+     * @param idCliente el cliente que va crear la cuenta
+     * @return regresa la cuenta que ya se creo
+     * @throws persistenciaException validacion por si hay un error
+     */
     @Override
     public CuentaDTO crearCuenta(String numCuenta, int idCliente) throws persistenciaException {
         String sentenciaSQL = "insert into Cuentas(numeroCuenta,fechaApertura,saldo,estado,idCliente) values (?, now() ,0,'Activa',?)";
@@ -54,6 +66,13 @@ public class CuentaDAO implements ICuenta {
         }
     }
 
+    /**
+     * Metodo para eliminar una cuenta
+     *
+     * @param id El id de la cuenta que se quiere cancelar
+     * @return Regresa true si se elimino y false si no se pudo eliminar
+     * @throws persistenciaException validacion por si hay un error
+     */
     @Override
     public boolean eliminarCuenta(int id) throws persistenciaException {
         String sentencia = "delete from cuentas where idCuenta =?";
@@ -66,6 +85,13 @@ public class CuentaDAO implements ICuenta {
         }
     }
     
+    /**
+     *Metodo para depositar dinero
+     * @param cuenta Cuenta donde se va a depositar
+     * @param monto cantidad
+     * @return regresa true si se logro, false en caso contrario
+     * @throws persistenciaException validacion por si hay un error
+     */
     public boolean depositarDinero(Cuenta cuenta, int monto) throws persistenciaException {
         String sentencia = "update cuentas set saldo=? where idCuenta=?;";
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia)) {
@@ -79,6 +105,12 @@ public class CuentaDAO implements ICuenta {
         }
     }
 
+    /**
+     * Metodo para mostrar las cuentas guardadas
+     *
+     * @return Regresa la lista de las cuentas
+     * @throws persistenciaException validacion por si hay un error
+     */
     @Override
     public List<Cuenta> mostrarCuentas() throws persistenciaException {
         String sentencia = "select * from cuentas;";
@@ -104,6 +136,12 @@ public class CuentaDAO implements ICuenta {
         }
     }
     
+    /**
+     *Metodo para mostrar las cuentas de un cliente
+     * @param idCliente id del cliente que se va mostrar las cuentas
+     * @return las cuentas que tiene el cliente
+     * @throws persistenciaException validacion por si hay un error
+     */
     @Override
     public List<Cuenta> mostrarCuentasDeCliente(int idCliente) throws persistenciaException {
         String sentencia = "select * from cuentas where idCliente="+idCliente+";";
@@ -129,6 +167,12 @@ public class CuentaDAO implements ICuenta {
         }
     }
 
+    /**
+     *Metodo para consultar una cuenta por su numero
+     * @param numeroCuenta numero para consultar una cuenta
+     * @return regresa la cuenta
+     * @throws persistenciaException validacion por si hay un error
+     */
     public Cuenta consultarCuentaPorNumeroCuenta(String numeroCuenta) throws persistenciaException {
         String sentenciaSQL = "call cuentaPorNumero(?)";
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
@@ -149,6 +193,11 @@ public class CuentaDAO implements ICuenta {
         }
     }
 
+    /**
+     *Metodo para hacer la transferencia
+     * @param transferencia la transferencia que se va a hacer
+     * @return true si se logro y false en lo contrario
+     */
     public boolean transferencia(TransferenciaDTO transferencia) {
         String sentenciaSQL = "call realizar_transferencia(?,?,?,?)";
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareCall(sentenciaSQL)) {
@@ -167,6 +216,11 @@ public class CuentaDAO implements ICuenta {
         }
     }
     
+    /**
+     *Metodo para crear un retiro sin cuenta
+     * @param retiro cantidad del retiro
+     * @return true si se logro y false en lo contrario
+     */
     public boolean crearRetiroSinCuenta(RetiroDTO retiro) {
         String sentenciaSQL = "call crear_retiroSinCuenta(?,?,?,?)";
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareCall(sentenciaSQL)) {
@@ -186,6 +240,12 @@ public class CuentaDAO implements ICuenta {
         }
     }
     
+    /**
+     *Metodo que realiza el retiro sin cuenta
+     * @param folio el folio para hacer el retiro
+     * @param contra la contra para  hacer el retiro
+     * @return true si se logro y false en lo contrario
+     */
     public boolean realizarRetiroSinCuenta(int folio, int contra) {
         String sentenciaSQL = "call realizar_retiroSinCuenta(?,?)";
         try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareCall(sentenciaSQL)) {
@@ -200,6 +260,32 @@ public class CuentaDAO implements ICuenta {
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "No se pudo hacer la transferencia", e);
             return false;
+        }
+    }
+
+  
+    /**
+     * Metodo para actualizar el folio de la cuenta
+     *
+     * @param cuenta cuenta donde se quiere actualizar
+     * @return regresa un true si se actualizo y false al contrario
+     * @throws persistenciaException validacion por si hay un error
+     */
+    @Override
+    public boolean actualizarCuenta(Cuenta cuenta) throws persistenciaException {
+        String sentenciaSQL = "update cuentas set estado=? where numeroCuenta=?";
+        try (Connection conexion = this.conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
+            comandoSQL.setString(1, cuenta.getEstado());
+            comandoSQL.setString(2, cuenta.getNumeroCuenta());
+            int resultado = comandoSQL.executeUpdate();
+
+            LOG.log(Level.INFO, "Se ha actualizado {0}", resultado);
+
+            return true;
+
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se pudo actualizar el cliente", e);
+            throw new persistenciaException("No se pudo actualizar el cliente");
         }
     }
 }

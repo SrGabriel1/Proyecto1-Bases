@@ -4,7 +4,6 @@
  */
 package com.mycompany.bancopersistencia.DAO;
 
-import com.mycompany.bancodominio.Cliente;
 import com.mycompany.bancodominio.Usuario;
 import com.mycompany.bancopersistencia.DTOS.UsuarioDTO;
 import com.mycompany.bancopersistencia.conexion.IConexionBD;
@@ -20,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *Clase con los atributos de usuarios
  * @author yohan
  */
 public abstract class UsuarioDAO implements IUsuario {
@@ -28,10 +27,21 @@ public abstract class UsuarioDAO implements IUsuario {
     IConexionBD conexionBD;
     private static final Logger LOG = Logger.getLogger(UsuarioDAO.class.getName());
 
+    /**
+     * Constructor para hacer la conexion con la base de datos
+     *
+     * @param conexionBD la conexion con la base de datos
+     */
     public UsuarioDAO(IConexionBD conexionBD) {
         this.conexionBD = conexionBD;
     }
 
+     /**
+     *Metodo para crear un usuario
+     * @param usuario usuartio que se quiere guardar sus datos
+     * @return el usuario guardado
+     * @throws persistenciaException validacion por si hay un error
+     */
     @Override
     public Usuario crearUsuario(UsuarioDTO usuario) throws persistenciaException {
         String sentenciaSQL = "insert into usuarios(contrasena,usuario,idCliente) values (?,?,?)";
@@ -52,6 +62,11 @@ public abstract class UsuarioDAO implements IUsuario {
         }
     }
 
+    /**
+     * Metodo para mostrar todo los usuarios que hay
+     * @return la lista de usuarios
+     * @throws persistenciaException validacion por si hay un error
+     */
     @Override
     public List<Usuario> mostrarUsuarios() throws persistenciaException {
         String sentencia = "select idUsuario, contrasena, usuario, idcliente from usuarios;";
