@@ -43,9 +43,9 @@ public class Control {
     }
 
     public void agregarCliente(Cliente cliente) throws persistenciaException, Throwable {
-       
+
         for (int i = 0; i < clienteDAO.consultarClientes().size(); i++) {
-       
+
             if (clienteDAO.consultarClientes().get(i).getUsuario().equalsIgnoreCase(cliente.getUsuario())) {
                 JOptionPane.showMessageDialog(null, "El usuario ya existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
                 throw new persistenciaException("El usuario ya existe");
@@ -54,6 +54,10 @@ public class Control {
         clienteDAO.agregarCliente(new ClienteDTO(cliente.getNumeroCasa(), cliente.getEdad(), cliente.getNombre(), cliente.getApellidoPaterno(),
                 cliente.getApellidoMaterno(), cliente.getFechaNacimiento(), cliente.getCalle(), cliente.getColonia(),
                 cliente.getUsuario(), cliente.getContrasena()));
+    }
+
+    public boolean actualizarCliente(Cliente cliente) throws persistenciaException {
+        return clienteDAO.actualizarCliente(cliente);
     }
 
     public Cliente consultarCliente(ClienteDTO cliente) throws persistenciaException {
@@ -77,16 +81,20 @@ public class Control {
                         break;
                     }
                 }
-            }else{
-                bandera=false;
+            } else {
+                bandera = false;
             }
         }
         return cuentaDAO.crearCuenta(numeroAleatorio.toString(), cliente.getIdCliente());
     }
-    public Cuenta consultarCuentaPorNumeroCuenta(String numeroCuenta) throws persistenciaException{
-   return cuentaDAO.consultarCuentaPorNumeroCuenta(numeroCuenta);
+  public boolean actualizarCuenta(Cuenta cuenta) throws persistenciaException {
+        return cuentaDAO.actualizarCuenta(cuenta);
     }
-        public boolean transferencia(TransferenciaDTO transferencia){
-            return cuentaDAO.transferencia(transferencia);
-        }
+    public Cuenta consultarCuentaPorNumeroCuenta(String numeroCuenta) throws persistenciaException {
+        return cuentaDAO.consultarCuentaPorNumeroCuenta(numeroCuenta);
+    }
+
+    public boolean transferencia(TransferenciaDTO transferencia) {
+        return cuentaDAO.transferencia(transferencia);
+    }
 }

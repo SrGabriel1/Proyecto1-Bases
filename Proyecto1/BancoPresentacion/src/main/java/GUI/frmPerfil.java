@@ -44,6 +44,7 @@ public class frmPerfil extends javax.swing.JFrame {
         botonCerrarSesión = new javax.swing.JButton();
         botonRegresar = new javax.swing.JButton();
         botonVerInformacion = new javax.swing.JButton();
+        botonActualizarDatos = new javax.swing.JButton();
         labelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -85,6 +86,14 @@ public class frmPerfil extends javax.swing.JFrame {
         });
         getContentPane().add(botonVerInformacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 120, 300, 60));
 
+        botonActualizarDatos.setContentAreaFilled(false);
+        botonActualizarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarDatosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonActualizarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 230, 300, 60));
+
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Perfil de Usuario.png"))); // NOI18N
         labelFondo.setText("jLabel1");
         labelFondo.setMaximumSize(new java.awt.Dimension(1080, 773));
@@ -124,6 +133,12 @@ public class frmPerfil extends javax.swing.JFrame {
         frmDatosUsuario.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonVerInformacionActionPerformed
+
+    private void botonActualizarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarDatosActionPerformed
+        frmActualizarDatos frmActualizarDatos = new frmActualizarDatos(cliente);
+        frmActualizarDatos.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_botonActualizarDatosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,6 +183,7 @@ public class frmPerfil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonActualizarDatos;
     private javax.swing.JButton botonCerrarSesión;
     private javax.swing.JButton botonCrearCuenta;
     private javax.swing.JButton botonRegresar;

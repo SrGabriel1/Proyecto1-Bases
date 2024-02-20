@@ -21,8 +21,9 @@ import java.util.logging.Logger;
 import java.util.Random;
 
 /**
+ * Clase con los atributos del cliente
  *
- * @author LV322
+ * @author pablo
  */
 public class ClienteDAO implements ICliente {
 
@@ -33,10 +34,21 @@ public class ClienteDAO implements ICliente {
     Random random = new Random();
     StringBuilder numeroAleatorio;
 
+    /**
+     * Constructor para hacer la conexion con la base de datos
+     *
+     * @param conexionBD la conexion con la base de datos
+     */
     public ClienteDAO(IConexionBD conexionBD) {
         this.conexionBD = conexionBD;
     }
 
+    /**
+     * Metodo para agregar un cliente
+     *
+     * @param cliente Cliente que se quiere agregar
+     * @throws persistenciaException validacion por si hay un error
+     */
     @Override
     public void agregarCliente(ClienteDTO cliente) throws persistenciaException {
         String sentenciaSQL = "call  crear_cliente_con_cuenta(?,?,?,?,?,?,?,?,?,?,?)";
@@ -70,6 +82,13 @@ public class ClienteDAO implements ICliente {
         }
     }
 
+    /**
+     * Metodo para actualizar un cliente
+     *
+     * @param cliente cliente a actualizar
+     * @return regesa un true si se actualizo y un false si no
+     * @throws persistenciaException validacion por si hay un error
+     */
     @Override
     public boolean actualizarCliente(Cliente cliente) throws persistenciaException {
         String sentenciaSQL = "update clientes set nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?,fechaNacimiento=?,numeroCasa=?,calle=?,colonia=?,edad=? where idCliente=?";
@@ -95,6 +114,12 @@ public class ClienteDAO implements ICliente {
         }
     }
 
+    /**
+     * Metodo para consultar los clientes
+     *
+     * @return Regresa una lista con los clientes
+     * @throws persistenciaException validacion por si hay un error
+     */
     @Override
     public List<Cliente> consultarClientes() throws persistenciaException {
         String sentencia = "select idCliente, nombre, apellidoPaterno, apellidoMaterno,fechaNacimiento,numeroCasa,calle,colonia,edad,usuario,contrasena from clientes;";
@@ -125,6 +150,13 @@ public class ClienteDAO implements ICliente {
         }
     }
 
+    /**
+     * Metodo para consultar los cliente
+     *
+     * @param id id del cliente para consultar
+     * @return regresa el cliente con ese id
+     * @throws persistenciaException validacion por si hay un error
+     */
     @Override
     public Cliente consultarClientePorID(int id) throws persistenciaException {
         //1. Realizar la consulta a la BD
@@ -148,6 +180,13 @@ public class ClienteDAO implements ICliente {
         }
     }
 
+    /**
+     * Metodo para consultar un cliente
+     *
+     * @param cliente cliente para consultar
+     * @return el cliente consultado
+     * @throws persistenciaException validacion por si hay un error
+     */
     @Override
     public Cliente consultarCliente(ClienteDTO cliente) throws persistenciaException {
         String sentencia = "select * from clientes where contrasena=? and usuario=?;";

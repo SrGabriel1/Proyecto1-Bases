@@ -4,17 +4,44 @@
  */
 package GUI;
 
+import com.mycompany.bancodominio.Cliente;
+import com.mycompany.banconegocio.Controlador.Control;
+import com.mycompany.bancopersistencia.excepciones.persistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
+ * Interfaz grafica para actualizar datos
  *
  * @author yohan
  */
 public class frmActualizarDatos extends javax.swing.JFrame {
+
+    Cliente cliente;
+    Control controlador = new Control();
 
     /**
      * Creates new form frmActualizarDatos
      */
     public frmActualizarDatos() {
         initComponents();
+        textCalle.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textColonia.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textNumeroCasa.setBackground(new java.awt.Color(0, 0, 0, 1));
+    }
+
+    /**
+     * Creates new form frmActualizarDatos
+     *
+     * @param cliente cliente con los datos
+     */
+    public frmActualizarDatos(Cliente cliente1) {
+        initComponents();
+        textCalle.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textColonia.setBackground(new java.awt.Color(0, 0, 0, 1));
+        textNumeroCasa.setBackground(new java.awt.Color(0, 0, 0, 1));
+        this.cliente= cliente1;
     }
 
     /**
@@ -26,29 +53,107 @@ public class frmActualizarDatos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        textCalle = new javax.swing.JTextField();
+        textNumeroCasa = new javax.swing.JTextField();
+        textColonia = new javax.swing.JTextField();
+        botonConfirmarCambios = new javax.swing.JButton();
+        botonRegresar = new javax.swing.JButton();
+        labelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Actualizar Domicilio.png"))); // NOI18N
+        textCalle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        textCalle.setForeground(new java.awt.Color(102, 102, 102));
+        textCalle.setToolTipText("");
+        textCalle.setBorder(null);
+        textCalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textCalleActionPerformed(evt);
+            }
+        });
+        getContentPane().add(textCalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 440, 60));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
-        );
+        textNumeroCasa.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        textNumeroCasa.setForeground(new java.awt.Color(102, 102, 102));
+        textNumeroCasa.setToolTipText("");
+        textNumeroCasa.setBorder(null);
+        textNumeroCasa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textNumeroCasaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(textNumeroCasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, 440, 60));
+
+        textColonia.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        textColonia.setForeground(new java.awt.Color(102, 102, 102));
+        textColonia.setToolTipText("");
+        textColonia.setBorder(null);
+        textColonia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textColoniaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(textColonia, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 270, 440, 60));
+
+        botonConfirmarCambios.setContentAreaFilled(false);
+        botonConfirmarCambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonConfirmarCambiosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonConfirmarCambios, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 550, 560, 60));
+
+        botonRegresar.setContentAreaFilled(false);
+        botonRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 640, 300, 70));
+
+        labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Actualizar Domicilio.png"))); // NOI18N
+        getContentPane().add(labelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, -1, 739));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void botonConfirmarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarCambiosActionPerformed
+
+        cliente.setCalle(textCalle.getText());
+        cliente.setColonia(textColonia.getText());
+        cliente.setNumeroCasa(cliente.getNumeroCasa());
+        try {
+            if (controlador.actualizarCliente(cliente) == true) {
+                JOptionPane.showMessageDialog(null, "Se pudo actualizar los datos", "Notificacion", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar los datos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (persistenciaException ex) {
+            Logger.getLogger(frmActualizarDatos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botonConfirmarCambiosActionPerformed
+
+    private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
+        frmPerfil frmPerfil = new frmPerfil(cliente);
+        frmPerfil.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_botonRegresarActionPerformed
+
+    private void textCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCalleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textCalleActionPerformed
+
+    private void textColoniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textColoniaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textColoniaActionPerformed
+
+    private void textNumeroCasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNumeroCasaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textNumeroCasaActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -82,6 +187,11 @@ public class frmActualizarDatos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton botonConfirmarCambios;
+    private javax.swing.JButton botonRegresar;
+    private javax.swing.JLabel labelFondo;
+    private javax.swing.JTextField textCalle;
+    private javax.swing.JTextField textColonia;
+    private javax.swing.JTextField textNumeroCasa;
     // End of variables declaration//GEN-END:variables
 }

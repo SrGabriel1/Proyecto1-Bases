@@ -6,15 +6,23 @@ package com.mycompany.bancopersistencia.Encriptacion;
 
 
 /**
- *
+ *Clase para encriptar cadenas de texto
  * @author yohan
  */
 public class encriptacion {
 
+    /**
+     *Constructor vacio
+     */
     public encriptacion() {
     }
 
-  public String encrypt(String contraseña)  {
+    /**
+     *Metodo para encriptar una contraseña
+     * @param contraseña Contraseña que se quiere encriptar
+     * @return Contraseña ya encriptada
+     */
+    public String encrypt(String contraseña)  {
         String Newstr = "";
         try {
             for (int i = 0; i < contraseña.length(); i++) {
@@ -74,6 +82,11 @@ public class encriptacion {
         return Newstr;
     }
 
+    /**
+   *Metodo para desencriptar una contraseña
+     * @param contraseña Contraseña que se quiere desencriptar
+     * @return Contraseña ya desencriptada
+     */
     public String decrypt(String contraseña) { 
         String Newstr="";  
         try {  
