@@ -7,27 +7,28 @@ import com.mycompany.bancodominio.Usuario;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author USER
  */
 public class frmMenuUsuario extends javax.swing.JFrame {
+
     Cliente cliente;
+
     /**
      * Creates new form frmInicioSesion
      */
     public frmMenuUsuario() {
         initComponents();
     }
-    
-     /**
+
+    /**
      * Creates new form frmInicioSesion
      */
     public frmMenuUsuario(Cliente cliente) {
         initComponents();
-        this.cliente=cliente;
-        labelBienvenida.setText("Bienvenido "+ cliente.getNombre());
+        this.cliente = cliente;
+        labelBienvenida.setText("Bienvenido " + cliente.getNombre());
     }
 
     /**
@@ -40,6 +41,9 @@ public class frmMenuUsuario extends javax.swing.JFrame {
         botonPerfil = new javax.swing.JButton();
         labelBienvenida = new javax.swing.JLabel();
         botonTransferir = new javax.swing.JButton();
+        botonDepositar = new javax.swing.JButton();
+        botonHistorial = new javax.swing.JButton();
+        botonRetirar = new javax.swing.JButton();
         labelFondo1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,6 +73,30 @@ public class frmMenuUsuario extends javax.swing.JFrame {
         });
         getContentPane().add(botonTransferir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 150, 130));
 
+        botonDepositar.setContentAreaFilled(false);
+        botonDepositar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonDepositarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonDepositar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 130, 150, 130));
+
+        botonHistorial.setContentAreaFilled(false);
+        botonHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonHistorialActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 110, 110));
+
+        botonRetirar.setContentAreaFilled(false);
+        botonRetirar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRetirarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonRetirar, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 140, 110, 110));
+
         labelFondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menú de Usuario.png"))); // NOI18N
         labelFondo1.setText("jLabel1");
         labelFondo1.setMaximumSize(new java.awt.Dimension(1080, 773));
@@ -81,15 +109,31 @@ public class frmMenuUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPerfilActionPerformed
-        frmPerfil frmPerfil= new frmPerfil(cliente);
+        frmPerfil frmPerfil = new frmPerfil(cliente);
         frmPerfil.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonPerfilActionPerformed
 
     private void botonTransferirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTransferirActionPerformed
-       frmTransferencia frmtransferencial= new frmTransferencia(cliente);
+        frmTransferencia frmtransferencial = new frmTransferencia(cliente);
         frmtransferencial.setVisible(true);
         this.setVisible(false);    }//GEN-LAST:event_botonTransferirActionPerformed
+
+    private void botonDepositarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDepositarActionPerformed
+        frmDepositar frmDepositar = new frmDepositar(cliente);
+        frmDepositar.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_botonDepositarActionPerformed
+
+    private void botonHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHistorialActionPerformed
+        
+    }//GEN-LAST:event_botonHistorialActionPerformed
+
+    private void botonRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRetirarActionPerformed
+        frmRetirarMenu frmRetirarMenu = new frmRetirarMenu(cliente);
+        frmRetirarMenu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_botonRetirarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,7 +174,10 @@ public class frmMenuUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonDepositar;
+    private javax.swing.JButton botonHistorial;
     private javax.swing.JButton botonPerfil;
+    private javax.swing.JButton botonRetirar;
     private javax.swing.JButton botonTransferir;
     private javax.swing.JLabel labelBienvenida;
     private javax.swing.JLabel labelFondo1;

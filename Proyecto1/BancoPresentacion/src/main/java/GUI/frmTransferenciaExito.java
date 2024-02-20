@@ -109,6 +109,7 @@ public class frmTransferenciaExito extends javax.swing.JFrame {
         getContentPane().add(LabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 1120, 780));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed

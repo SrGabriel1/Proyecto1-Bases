@@ -7,45 +7,49 @@ package GUI;
 import com.mycompany.bancodominio.Cliente;
 import com.mycompany.bancodominio.Cuenta;
 import com.mycompany.banconegocio.Controlador.Control;
+import com.mycompany.bancopersistencia.DTOS.RetiroDTO;
+import com.mycompany.bancopersistencia.DTOS.TransferenciaDTO;
 import com.mycompany.bancopersistencia.excepciones.persistenciaException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author yohan
  */
-public class frmDepositar extends javax.swing.JFrame {
+public class frmRetirarMenu extends javax.swing.JFrame {
     Cliente cliente;
     Cuenta cuenta;
-    Control controlador = new Control();
+    Control controlador;
     List<Cuenta> listaCuentas;
   
     
     /**
      * Creates new form frmDepositar
      */
-    public frmDepositar() {
+    public frmRetirarMenu() {
         initComponents();
     }
     
-    public frmDepositar(Cliente cliente) {
+    public frmRetirarMenu(Cliente cliente) {
         initComponents();
         this.cliente=cliente;
+        controlador = new Control();
         try {
             listaCuentas = new ArrayList<>(controlador.mostrarCuentasDeCliente(cliente.getIdCliente()));
         } catch (persistenciaException ex) {
-            Logger.getLogger(frmDepositar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmRetirarMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
         cargarListaCuentas();
     }
     
     private void cargarListaCuentas(){
         for (int i = 0; i < listaCuentas.size(); i++) {
-            comboBoxCuentaDepositar.addItem(listaCuentas.get(i).getNumeroCuenta());
+            comboBoxCuenta.addItem(listaCuentas.get(i).getNumeroCuenta());
         }
     }
 
@@ -58,10 +62,10 @@ public class frmDepositar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        comboBoxCuentaDepositar = new javax.swing.JComboBox<>();
+        comboBoxCuenta = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        textSaldo = new javax.swing.JTextField();
         textMonto = new javax.swing.JTextField();
-        textConcepto = new javax.swing.JTextField();
         botonContinuar = new javax.swing.JButton();
         botonRegresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -69,13 +73,34 @@ public class frmDepositar extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        comboBoxCuentaDepositar.setBackground(new java.awt.Color(153, 204, 255));
-        getContentPane().add(comboBoxCuentaDepositar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, 450, 60));
+        comboBoxCuenta.setBackground(new java.awt.Color(153, 204, 255));
+        comboBoxCuenta.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboBoxCuentaItemStateChanged(evt);
+            }
+        });
+        getContentPane().add(comboBoxCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 450, 50));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("$");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, -1, 50));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, -1, 50));
+
+        textSaldo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        textSaldo.setForeground(new java.awt.Color(102, 102, 102));
+        textSaldo.setToolTipText("");
+        textSaldo.setBorder(null);
+        textSaldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textSaldoActionPerformed(evt);
+            }
+        });
+        textSaldo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textSaldoKeyTyped(evt);
+            }
+        });
+        getContentPane().add(textSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 410, 50));
 
         textMonto.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         textMonto.setForeground(new java.awt.Color(102, 102, 102));
@@ -86,23 +111,7 @@ public class frmDepositar extends javax.swing.JFrame {
                 textMontoActionPerformed(evt);
             }
         });
-        textMonto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                textMontoKeyTyped(evt);
-            }
-        });
-        getContentPane().add(textMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 410, 50));
-
-        textConcepto.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        textConcepto.setForeground(new java.awt.Color(102, 102, 102));
-        textConcepto.setToolTipText("");
-        textConcepto.setBorder(null);
-        textConcepto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textConceptoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(textConcepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, 430, 50));
+        getContentPane().add(textMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 360, 430, 50));
 
         botonContinuar.setContentAreaFilled(false);
         botonContinuar.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +119,7 @@ public class frmDepositar extends javax.swing.JFrame {
                 botonContinuarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 520, 570, 80));
+        getContentPane().add(botonContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 520, 480, 60));
 
         botonRegresar.setContentAreaFilled(false);
         botonRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -120,41 +129,53 @@ public class frmDepositar extends javax.swing.JFrame {
         });
         getContentPane().add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 650, 200, 70));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Depositar dinero.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RetiroSinCuenta-Menu.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, -20, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void textSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textSaldoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textSaldoActionPerformed
 
     private void textMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMontoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textMontoActionPerformed
 
-    private void textConceptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textConceptoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textConceptoActionPerformed
-
     
     //Admite solo valores numericos
-    private void textMontoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textMontoKeyTyped
+    private void textSaldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textSaldoKeyTyped
         int key = evt.getKeyChar();
         boolean numero = key >= 48 && key <= 57;
         if(!numero){
             evt.consume();
         }
-    }//GEN-LAST:event_textMontoKeyTyped
+    }//GEN-LAST:event_textSaldoKeyTyped
 
     private void botonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContinuarActionPerformed
         for (int i = 0; i < listaCuentas.size(); i++) {
-            if(listaCuentas.get(i).getNumeroCuenta().equalsIgnoreCase((String) comboBoxCuentaDepositar.getSelectedItem())){
+            if(listaCuentas.get(i).getNumeroCuenta().equalsIgnoreCase((String) comboBoxCuenta.getSelectedItem())){
                 cuenta= listaCuentas.get(i);
                 break;
             }
         }
-        if(controlador.depositar(cuenta, Integer.parseInt(textMonto.getText()))){
-            frmDepositarExitoso frmDepositarExitoso = new frmDepositarExitoso(cuenta, textMonto.getText(), textConcepto.getText(), cliente);
-            frmDepositarExitoso.setVisible(true);
-            this.setVisible(false);
+        try {
+            RetiroDTO retiro = new RetiroDTO();
+            retiro.setCuenta((String) comboBoxCuenta.getSelectedItem());
+            retiro.setMonto(Integer.parseInt(textMonto.getText()));
+
+            boolean validacion = controlador.crearRetiro(retiro);
+
+            if (validacion) {
+                frmRetirarMenuExito frmRetirarMenuExito = new frmRetirarMenuExito(cliente, retiro);
+                frmRetirarMenuExito.setVisible(true);
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se logró hacer el retiro", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_botonContinuarActionPerformed
 
@@ -163,6 +184,17 @@ public class frmDepositar extends javax.swing.JFrame {
         frmMenuUsuario.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonRegresarActionPerformed
+
+    private void comboBoxCuentaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBoxCuentaItemStateChanged
+        // Obtener el valor seleccionado del ComboBox
+        String seleccion = (String) comboBoxCuenta.getSelectedItem();
+        // Actualizar el contenido del TextField con el valor seleccionado del ComboBox
+        for (int i = 0; i < listaCuentas.size(); i++) {
+            if(seleccion.equalsIgnoreCase(listaCuentas.get(i).getNumeroCuenta())){
+                textSaldo.setText(String.valueOf(listaCuentas.get(i).getSaldo()));
+            }
+        }
+    }//GEN-LAST:event_comboBoxCuentaItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -181,20 +213,21 @@ public class frmDepositar extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmDepositar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRetirarMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmDepositar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRetirarMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmDepositar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRetirarMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmDepositar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRetirarMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmDepositar().setVisible(true);
+                new frmRetirarMenu().setVisible(true);
             }
         });
     }
@@ -202,10 +235,10 @@ public class frmDepositar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonContinuar;
     private javax.swing.JButton botonRegresar;
-    private javax.swing.JComboBox<String> comboBoxCuentaDepositar;
+    private javax.swing.JComboBox<String> comboBoxCuenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField textConcepto;
     private javax.swing.JTextField textMonto;
+    private javax.swing.JTextField textSaldo;
     // End of variables declaration//GEN-END:variables
 }
